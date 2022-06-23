@@ -3,24 +3,23 @@ import { Form, Row, Col } from "react-bootstrap";
 import "../App.css";
 import Attribute from "./Attribute";
 import Budget from "./Budget";
+import { CustomizationContainer } from "./CustomizationContainer";
 import DateInput from "./DateInput";
 
-const COLORS = ["#14B1B2", "#FF910B", "#04A2DF", "#F05E67"];
-
-const CustomizationContainer = ({ userData, setUserData }) => {
+const Preferences = ({ userData, setUserData }) => {
   return (
     <div>
       <div style={{ padding: "10px 0" }}>
         <Budget />
       </div>
-      <div style={{ padding: "10px 0" }}>
+      <div>
         <DateInput />
       </div>
       <div style={{ padding: "10px 0" }}>
-        <Attribute />
+        <CustomizationContainer userData={userData} />
       </div>
     </div>
   );
 };
 
-export default CustomizationContainer;
+export default Preferences;

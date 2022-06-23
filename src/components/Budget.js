@@ -6,7 +6,7 @@ const Budget = () => {
   return (
     <div>
       <Form>
-        <h5 style={{ textAlign: "left" }}>Budget</h5>
+        <p style={{ textAlign: "left" }}>Budget</p>
         <Row>
           <Col>
             <Form.Check
