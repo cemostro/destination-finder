@@ -1,39 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "./logo.svg";
 import "./App.css";
-import { Row, Col } from "react-bootstrap";
-import Map from "./components/Map";
-import Preferences from "./components/Preferences";
+import TravelRecommender from "./components/TravelRecommender";
+import LoadCountriesTask from "./tasks/LoadCountriesTask";
+import Loading from "./components/Loading";
 
-function App() {
-  const [userData, setUserData] = useState({
-    Nature: 50,
-    Architecture: 50,
-    Hiking: 50,
-    Wintersports: 50,
-    Beach: 50,
-    Nightlife: 50,
-    Culture: 50,
-    Culinary: 50,
-    Entertainment: 50,
-    Shopping: 50,
-  });
+const App = () => {
+  const [countries, setCountries] = useState([]);
+
+  const load = () => {
+    const loadCountriesTask = new LoadCountriesTask();
+    loadCountriesTask.load(setCountries);
+  };
+  useEffect(load, [countries]);
   return (
-    <div className="App">
-      <Row>
-        <Col>
-          <Preferences userData={userData}></Preferences>
-        </Col>
-        <Col xs={6}>
-          <Map />
-        </Col>
-        <Col>
-          <Preferences userData={userData}></Preferences>
-        </Col>
-      </Row>
+    <div>
+      {countries.length === 0 ? (
+        <Loading />
+      ) : (
+        <TravelRecommender countries={countries} />
+      )}
     </div>
   );
-}
+};
 
 export default App;

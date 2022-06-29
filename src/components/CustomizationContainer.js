@@ -26,6 +26,7 @@ export const CustomizationContainer = ({ userData }) => {
             padding: "0 5px",
             margin: "5px 0 0 0",
           }}
+          key={index}
         >
           <Attribute attrName={item} />
         </div>
