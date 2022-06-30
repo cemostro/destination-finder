@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import "../App.css";
-import Attribute from "./Attribute";
 import Budget from "./Budget";
 import { CustomizationContainer } from "./CustomizationContainer";
 import DateInput from "./DateInput";
@@ -13,10 +12,10 @@ const Preferences = ({ userData, setUserData }) => {
         <Budget />
       </div>
       <div>
-        <DateInput />
+        <DateInput userData={userData} setUserData={setUserData} />
       </div>
       <div style={{ padding: "10px 0" }}>
-        <CustomizationContainer userData={userData} />
+        <CustomizationContainer userData={userData} setUserData={setUserData} />
       </div>
     </div>
   );

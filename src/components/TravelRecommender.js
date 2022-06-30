@@ -5,30 +5,24 @@ import { Row, Col } from "react-bootstrap";
 import Map from "./Map";
 import Preferences from "./Preferences";
 
-const TravelRecommender = ({ countries }) => {
-  const [userData, setUserData] = useState({
-    Nature: 50,
-    Architecture: 50,
-    Hiking: 50,
-    Wintersports: 50,
-    Beach: 50,
-    Nightlife: 50,
-    Culture: 50,
-    Culinary: 50,
-    Entertainment: 50,
-    Shopping: 50,
-  });
+const TravelRecommender = ({ countries, userData, setUserData }) => {
   return (
     <div className="App">
       <Row>
         <Col>
-          <Preferences userData={userData}></Preferences>
+          <Preferences
+            userData={userData}
+            setUserData={setUserData}
+          ></Preferences>
         </Col>
         <Col xs={6}>
           <Map countries={countries} />
         </Col>
         <Col>
-          <Preferences userData={userData}></Preferences>
+          <Preferences
+            userData={userData}
+            setUserData={setUserData}
+          ></Preferences>
         </Col>
       </Row>
     </div>

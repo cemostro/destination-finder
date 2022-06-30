@@ -1,18 +1,20 @@
-import React, { Component } from "react";
+import React, { useRef, useEffect } from "react";
 import { MapContainer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "../styles/Map.css";
-import Loading from "./Loading";
 
 const position = [51.0967884, 5.9671304];
 
 const Map = ({ countries }) => {
-  const getRandomInt = (max) => {
-    return Math.floor(Math.random() * max);
-  };
+  const geoJsonLayer = useRef(null);
 
+  useEffect(() => {
+    if (geoJsonLayer.current) {
+      geoJsonLayer.current.clearLayers().addData(countries);
+    }
+  });
   const onEachCountry = (country, layer) => {
-    var score = getRandomInt(100);
+    var score = country.properties.score;
     layer.options.fillColor = getColor(score);
     layer.bindPopup(country.properties.NAME);
   };
@@ -41,7 +43,7 @@ const Map = ({ countries }) => {
     <div>
       <MapContainer
         style={{ height: "100vh", width: "auto" }}
-        zoom={6}
+        zoom={4}
         center={position}
         // zoomControl={false}
         // touchZoom={false}
@@ -51,6 +53,7 @@ const Map = ({ countries }) => {
         // keyboard={false}
       >
         <GeoJSON
+          ref={geoJsonLayer}
           style={countryStyle}
           data={countries}
           onEachFeature={onEachCountry}

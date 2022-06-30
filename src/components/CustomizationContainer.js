@@ -1,4 +1,5 @@
 import React from "react";
+import { Form, Row, Col } from "react-bootstrap";
 import Attribute from "./Attribute";
 
 const COLORS = [
@@ -11,12 +12,11 @@ const COLORS = [
   "#FFCD4D",
   "#251351",
   "#C62828",
-  "#0737B1",
 ];
-export const CustomizationContainer = ({ userData }) => {
+export const CustomizationContainer = ({ userData, setUserData }) => {
   return (
     <div>
-      {Object.keys(userData).map((item, index) => (
+      {Object.keys(userData.Attributes).map((item, index) => (
         <div
           style={{
             backgroundColor: COLORS[index % COLORS.length],
@@ -28,7 +28,11 @@ export const CustomizationContainer = ({ userData }) => {
           }}
           key={index}
         >
-          <Attribute attrName={item} />
+          <Attribute
+            attrName={item}
+            userData={userData}
+            setUserData={setUserData}
+          />
         </div>
       ))}
     </div>
