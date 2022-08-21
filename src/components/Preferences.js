@@ -9,7 +9,7 @@ const Preferences = ({ userData, setUserData }) => {
   return (
     <div>
       <div style={{ padding: "10px 0" }}>
-        <Budget />
+        <Budget userData={userData} setUserData={setUserData} />
       </div>
       <div>
         <DateInput userData={userData} setUserData={setUserData} />

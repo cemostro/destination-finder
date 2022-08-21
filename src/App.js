@@ -11,6 +11,7 @@ const App = () => {
   const [userData, setUserData] = useState({
     StartDate: new Date(),
     Stay: 4,
+    Budget: 1,
     Attributes: {
       Nature: 50,
       Architecture: 50,
@@ -28,6 +29,7 @@ const App = () => {
     loadCountriesTask.load(setFileRetrieved);
   };
   const calculateScores = () => {
+    console.log(userData);
     if (fileRetrieved.length > 0) {
       const loadCountriesTask = new LoadCountriesTask();
       loadCountriesTask.processCountries(fileRetrieved, userData, setCountries);
