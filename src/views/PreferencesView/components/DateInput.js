@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Row, Col } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
-import "../App.css";
+import "../../../App.css";
 
 const DateInput = ({ userData, setUserData }) => {
   return (

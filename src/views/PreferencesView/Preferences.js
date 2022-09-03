@@ -1,9 +1,9 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import "../App.css";
-import Budget from "./Budget";
-import { CustomizationContainer } from "./CustomizationContainer";
-import DateInput from "./DateInput";
+import "../../App.css";
+import Budget from "./components/Budget";
+import { CustomizationContainer } from "./components/CustomizationContainer";
+import DateInput from "./components/DateInput";
 
 const Preferences = ({ userData, setUserData }) => {
   return (

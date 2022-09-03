@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { MapContainer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "../styles/Map.css";
+import "./styles/Map.css";
 
 const position = [51.0967884, 5.9671304];
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import "../App.css";
+import "../../../App.css";
 
 const Attribute = ({ attrName, userData, setUserData }) => {
   return (

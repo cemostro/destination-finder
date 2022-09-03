@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import "../App.css";
+import "../../../App.css";
 
 const Budget = ({ userData, setUserData }) => {
   return (

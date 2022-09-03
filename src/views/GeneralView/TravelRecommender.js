@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../App.css";
+import "../../App.css";
 import { Row, Col } from "react-bootstrap";
-import Map from "./Map";
-import Preferences from "./Preferences";
+import Map from "../MapView/Map";
+import Preferences from "../PreferencesView/Preferences";
+import { Results } from "../ResultsView/Results";
 
 const TravelRecommender = ({ countries, userData, setUserData }) => {
   return (
@@ -19,10 +20,7 @@ const TravelRecommender = ({ countries, userData, setUserData }) => {
           <Map countries={countries} />
         </Col>
         <Col>
-          <Preferences
-            userData={userData}
-            setUserData={setUserData}
-          ></Preferences>
+          <Results />
         </Col>
       </Row>
     </div>

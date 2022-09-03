@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import TravelRecommender from "./components/TravelRecommender";
+import TravelRecommender from "./views/GeneralView/TravelRecommender";
 import LoadCountriesTask from "./tasks/LoadCountriesTask";
-import Loading from "./components/Loading";
+import Loading from "./views/GeneralView/Loading";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
