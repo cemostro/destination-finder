@@ -32,9 +32,8 @@ const Map = ({ countries }) => {
   const highlightFeature = (e) => {
     var layer = e.target;
     layer.setStyle({
-      weight: 3,
+      weight: 5,
       color: "white",
-      dashArray: "4",
       fillOpacity: 0.7,
     });
   };
@@ -44,7 +43,6 @@ const Map = ({ countries }) => {
     layer.setStyle({
       fillOpacity: 1,
       color: "#868686",
-      dashArray: "null",
       weight: 1,
     });
   };
