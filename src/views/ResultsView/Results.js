@@ -3,8 +3,8 @@ import Accordion from "react-bootstrap/Accordion";
 
 export const Results = ({ results }) => {
   return (
-    <div style={{ height: "100%" }}>
-      <h6>Best destinations for you:</h6>
+    <div style={{ padding: "10px 0", height: "100%" }}>
+      <p style={{ textAlign: "left" }}>Best destinations for you:</p>
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Accordion Item #1</Accordion.Header>

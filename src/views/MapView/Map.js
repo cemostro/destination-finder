@@ -16,13 +16,35 @@ const Map = ({ countries }) => {
   const onEachCountry = (country, layer) => {
     var score = country.properties.score;
     layer.options.fillColor = getColor(score);
-    layer.bindPopup(country.properties.NAME);
+    layer.bindPopup(country.properties.name);
+    layer.on({
+      mouseover: highlightFeature,
+      mouseout: resetHighlight,
+    });
   };
 
   const countryStyle = {
     fillOpacity: 1,
     color: "#868686",
     weight: 1,
+  };
+
+  const highlightFeature = (e) => {
+    var layer = e.target;
+    layer.setStyle({
+      weight: 5,
+      color: "white",
+      fillOpacity: 0.7,
+    });
+  };
+
+  const resetHighlight = (e) => {
+    var layer = e.target;
+    layer.setStyle({
+      fillOpacity: 1,
+      color: "#868686",
+      weight: 1,
+    });
   };
 
   const getColor = (d) => {

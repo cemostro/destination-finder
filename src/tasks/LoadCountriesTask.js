@@ -1,9 +1,9 @@
 import papa from "papaparse";
-import mapData from "../data/countries.json";
+import mapData from "../data/regions.json";
 
 class LoadCountriesTask {
   countryScoresUrl =
-    "https://raw.githubusercontent.com/assalism/europe-travel-data/main/europe.csv";
+    "https://raw.githubusercontent.com/assalism/travel-data/main/regionmodel.csv";
   mapCountries = mapData.features;
   load = (setFileRetrieved) => {
     papa.parse(this.countryScoresUrl, {
@@ -15,13 +15,14 @@ class LoadCountriesTask {
     });
     // setState(mapData);
   };
-  processCountries = (countryScores, userData, setCountries) => {
+  processCountries = (countryScores, userData, setCountries, setResults) => {
     for (let i = 0; i < this.mapCountries.length; i++) {
       const mapCountry = this.mapCountries[i];
       const scoreCountry = countryScores.find(
-        (c) => c.ISO3 === mapCountry.properties.ISO3
+        (c) => c.u_name === mapCountry.properties.u_name
       );
       if (scoreCountry != null) {
+        mapCountry.properties.name = scoreCountry.Region;
         // calculate the score for nature
         const natureScore = this.calculateAttributeScore(
           scoreCountry.nature,
@@ -77,10 +78,10 @@ class LoadCountriesTask {
             architectureScore +
             priceScore) /
           10;
-        console.log("price score:" + priceScore);
       }
     }
     setCountries(this.mapCountries);
+    console.log(this.mapCountries);
   };
   calculateAttributeScore = (countryScore, userScore) => {
     let numScore;

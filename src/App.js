@@ -8,6 +8,7 @@ import Loading from "./views/GeneralView/Loading";
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [fileRetrieved, setFileRetrieved] = useState([]);
+  const [results, setResults] = useState([]);
   const [userData, setUserData] = useState({
     StartDate: new Date(),
     Stay: 4,
@@ -32,7 +33,12 @@ const App = () => {
     console.log(userData);
     if (fileRetrieved.length > 0) {
       const loadCountriesTask = new LoadCountriesTask();
-      loadCountriesTask.processCountries(fileRetrieved, userData, setCountries);
+      loadCountriesTask.processCountries(
+        fileRetrieved,
+        userData,
+        setCountries,
+        setResults
+      );
     }
   };
   useEffect(load, []);
