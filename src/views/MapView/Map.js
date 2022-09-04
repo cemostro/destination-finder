@@ -16,7 +16,7 @@ const Map = ({ countries }) => {
   const onEachCountry = (country, layer) => {
     var score = country.properties.score;
     layer.options.fillColor = getColor(score);
-    layer.bindPopup(country.properties.name);
+    layer.bindPopup(country.properties.country + "-" + country.properties.name);
     layer.on({
       mouseover: highlightFeature,
       mouseout: resetHighlight,
@@ -32,8 +32,9 @@ const Map = ({ countries }) => {
   const highlightFeature = (e) => {
     var layer = e.target;
     layer.setStyle({
-      weight: 5,
+      weight: 3,
       color: "white",
+      dashArray: "4",
       fillOpacity: 0.7,
     });
   };
@@ -43,18 +44,19 @@ const Map = ({ countries }) => {
     layer.setStyle({
       fillOpacity: 1,
       color: "#868686",
+      dashArray: "null",
       weight: 1,
     });
   };
 
   const getColor = (d) => {
-    return d > 80
+    return d > 90
       ? "#109146"
-      : d > 60
+      : d > 70
       ? "#7CBA43"
-      : d > 40
+      : d > 60
       ? "#FFCC06"
-      : d > 20
+      : d > 50
       ? "#F58E1D"
       : d >= 0
       ? "#BF1E24"

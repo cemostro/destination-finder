@@ -5,21 +5,21 @@ import Map from "../MapView/Map";
 import Preferences from "../PreferencesView/Preferences";
 import { Results } from "../ResultsView/Results";
 
-const TravelRecommender = ({ countries, userData, setUserData }) => {
+const TravelRecommender = ({ countries, userData, setUserData, results }) => {
   return (
     <div className="App">
-      <Row>
-        <Col>
+      <Row style={{ height: "100%" }}>
+        <Col style={{ height: "100%" }}>
           <Preferences
             userData={userData}
             setUserData={setUserData}
           ></Preferences>
         </Col>
-        <Col xs={6}>
+        <Col xs={6} style={{ height: "100%" }}>
           <Map countries={countries} />
         </Col>
-        <Col>
-          <Results />
+        <Col style={{ height: "100%" }}>
+          <Results results={results} />
         </Col>
       </Row>
     </div>

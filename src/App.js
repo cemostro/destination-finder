@@ -45,14 +45,15 @@ const App = () => {
   useEffect(calculateScores, [userData, fileRetrieved]);
 
   return (
-    <div>
-      {countries.length === 0 ? (
+    <div style={{ height: "100vh" }}>
+      {countries.length === 0 || results.length === 0 ? (
         <Loading />
       ) : (
         <TravelRecommender
           countries={countries}
           userData={userData}
           setUserData={setUserData}
+          results={results}
         />
       )}
     </div>
