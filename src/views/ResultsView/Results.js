@@ -5,10 +5,7 @@ import ResultInfo from "./components/ResultInfo";
 
 export const Results = ({ results, stay }) => {
   return (
-    <div
-      style={{ padding: "10px 0", height: "100%", overflow: "hidden" }}
-      className="clearfix"
-    >
+    <div style={{ padding: "10px 0", height: "100%", overflow: "hidden" }}>
       <p style={{ textAlign: "left" }}>Best destinations for you:</p>
       <div style={{ overflow: "auto", height: "90%" }}>
         <Accordion>
