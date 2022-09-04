@@ -19,7 +19,7 @@ const TravelRecommender = ({ countries, userData, setUserData, results }) => {
           <Map countries={countries} />
         </Col>
         <Col style={{ height: "100%" }}>
-          <Results results={results} />
+          <Results results={results} stay={userData.Stay} />
         </Col>
       </Row>
     </div>

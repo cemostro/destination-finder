@@ -93,8 +93,7 @@ class LoadCountriesTask {
           scoreCountry.costPerWeek,
           userData
         );
-        res.price = (scoreCountry.costPerWeek * userData.Stay) / 7;
-        res.attr.budget = priceScore;
+        res.price = Math.ceil((scoreCountry.costPerWeek * userData.Stay) / 7);
         var totalScore =
           (natureScore +
             hikingScore +
@@ -114,6 +113,9 @@ class LoadCountriesTask {
     }
     setCountries(this.mapCountries);
     results.sort((a, b) => b.totalScore - a.totalScore);
+    // results = results.filter(
+    //   (a) => a.price <= this.getBudgetCeiling(userData.Budget)
+    // );
     setResults(results.slice(0, 10));
   };
   calculateAttributeScore = (countryScore, userScore) => {

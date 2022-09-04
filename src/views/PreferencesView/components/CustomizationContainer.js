@@ -1,24 +1,15 @@
 import React from "react";
 import Attribute from "./Attribute";
+import * as myConstant from "../../../data/constantData";
 
-const COLORS = [
-  "#FE900C",
-  "#16B0B2",
-  "#04A2DF",
-  "#F05E67",
-  "#952D97",
-  "#3C764D",
-  "#FFCD4D",
-  "#251351",
-  "#C62828",
-];
 export const CustomizationContainer = ({ userData, setUserData }) => {
   return (
     <div>
       {Object.keys(userData.Attributes).map((item, index) => (
         <div
           style={{
-            backgroundColor: COLORS[index % COLORS.length],
+            backgroundColor:
+              myConstant.COLORS[index % myConstant.COLORS.length],
             borderRadius: "100",
             color: "#fff",
             textAlign: "left",
