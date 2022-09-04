@@ -9,6 +9,7 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [fileRetrieved, setFileRetrieved] = useState([]);
   const [results, setResults] = useState([]);
+  const [allScores, setAllScores] = useState([]);
   const [userData, setUserData] = useState({
     StartDate: new Date(),
     Stay: 4,
@@ -30,14 +31,14 @@ const App = () => {
     loadCountriesTask.load(setFileRetrieved);
   };
   const calculateScores = () => {
-    console.log(userData);
     if (fileRetrieved.length > 0) {
       const loadCountriesTask = new LoadCountriesTask();
       loadCountriesTask.processCountries(
         fileRetrieved,
         userData,
         setCountries,
-        setResults
+        setResults,
+        setAllScores
       );
     }
   };
@@ -54,6 +55,7 @@ const App = () => {
           userData={userData}
           setUserData={setUserData}
           results={results}
+          allScores={allScores}
         />
       )}
     </div>

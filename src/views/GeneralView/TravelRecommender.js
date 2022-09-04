@@ -5,7 +5,13 @@ import Map from "../MapView/Map";
 import Preferences from "../PreferencesView/Preferences";
 import { Results } from "../ResultsView/Results";
 
-const TravelRecommender = ({ countries, userData, setUserData, results }) => {
+const TravelRecommender = ({
+  countries,
+  userData,
+  setUserData,
+  results,
+  allScores,
+}) => {
   return (
     <div className="App">
       <Row style={{ height: "100%" }}>
@@ -16,7 +22,7 @@ const TravelRecommender = ({ countries, userData, setUserData, results }) => {
           ></Preferences>
         </Col>
         <Col xs={6} style={{ height: "100%" }}>
-          <Map countries={countries} />
+          <Map countries={countries} allScores={allScores} />
         </Col>
         <Col style={{ height: "100%" }}>
           <Results results={results} stay={userData.Stay} />

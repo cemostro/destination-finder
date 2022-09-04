@@ -2,6 +2,7 @@ import papa from "papaparse";
 import mapData from "../data/regions.json";
 
 class LoadCountriesTask {
+  allResults = [];
   countryScoresUrl =
     "https://raw.githubusercontent.com/assalism/travel-data/main/regionmodel.csv";
   mapCountries = mapData.features;
@@ -13,10 +14,14 @@ class LoadCountriesTask {
         setFileRetrieved(result.data);
       },
     });
-    // setState(mapData);
   };
-  processCountries = (countryScores, userData, setCountries, setResults) => {
-    var results = [];
+  processCountries = (
+    countryScores,
+    userData,
+    setCountries,
+    setResults,
+    setAllScores
+  ) => {
     for (let i = 0; i < this.mapCountries.length; i++) {
       const mapCountry = this.mapCountries[i];
       const scoreCountry = countryScores.find(
@@ -28,6 +33,7 @@ class LoadCountriesTask {
           price: 0,
           country: scoreCountry.ParentRegion,
           region: scoreCountry.Region,
+          uname: scoreCountry.u_name,
           attr: {
             nature: 0,
             architecture: 0,
@@ -108,15 +114,17 @@ class LoadCountriesTask {
           10;
         mapCountry.properties.score = totalScore;
         res.totalScore = totalScore;
-        results.push(res);
+        this.allResults.push(res);
       }
     }
     setCountries(this.mapCountries);
-    results.sort((a, b) => b.totalScore - a.totalScore);
+    this.allResults.sort((a, b) => b.totalScore - a.totalScore);
+    console.log(this.allResults);
     // results = results.filter(
     //   (a) => a.price <= this.getBudgetCeiling(userData.Budget)
     // );
-    setResults(results.slice(0, 10));
+    setResults(this.allResults.slice(0, 10));
+    setAllScores(this.allResults);
   };
   calculateAttributeScore = (countryScore, userScore) => {
     let numScore;

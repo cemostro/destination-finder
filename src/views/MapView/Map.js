@@ -1,11 +1,14 @@
 import React, { useRef, useEffect } from "react";
+import * as ReactDOMServer from "react-dom/server";
 import { MapContainer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./styles/Map.css";
+import { DetailScores } from "../ResultsView/components/DetailScores";
+import LoadCountriesTask from "../../tasks/LoadCountriesTask";
 
 const position = [51.0967884, 5.9671304];
 
-const Map = ({ countries }) => {
+const Map = ({ countries, allScores }) => {
   const geoJsonLayer = useRef(null);
 
   useEffect(() => {
@@ -13,10 +16,24 @@ const Map = ({ countries }) => {
       geoJsonLayer.current.clearLayers().addData(countries);
     }
   });
+  const Popup = ({ feature }) => {
+    let countryScores = allScores.find(
+      (s) => s.uname === feature.properties.u_name
+    );
+    console.log(countryScores);
+    let scoreArr = Object.keys(countryScores?.attr).map((key) => ({
+      name: key,
+      value: countryScores?.attr[key],
+    }));
+    return <DetailScores scores={scoreArr} />;
+  };
   const onEachCountry = (country, layer) => {
     var score = country.properties.score;
     layer.options.fillColor = getColor(score);
-    layer.bindPopup(country.properties.country + "-" + country.properties.name);
+    const popupContent = ReactDOMServer.renderToString(
+      <Popup feature={country} />
+    );
+    layer.bindPopup(popupContent);
     layer.on({
       mouseover: highlightFeature,
       mouseout: resetHighlight,
