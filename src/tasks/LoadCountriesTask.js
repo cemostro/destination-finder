@@ -15,13 +15,7 @@ class LoadCountriesTask {
       },
     });
   };
-  processCountries = (
-    countryScores,
-    userData,
-    setCountries,
-    setResults,
-    setAllScores
-  ) => {
+  processCountries = (countryScores, userData, setCountries, setResults) => {
     for (let i = 0; i < this.mapCountries.length; i++) {
       const mapCountry = this.mapCountries[i];
       const scoreCountry = countryScores.find(
@@ -29,106 +23,107 @@ class LoadCountriesTask {
       );
       if (scoreCountry != null) {
         var res = {
-          totalScore: 0,
-          price: 0,
           country: scoreCountry.ParentRegion,
           region: scoreCountry.Region,
           uname: scoreCountry.u_name,
-          attr: {
-            nature: 0,
-            architecture: 0,
-            hiking: 0,
-            winterSports: 0,
-            beach: 0,
-            culture: 0,
-            culinary: 0,
-            entertainment: 0,
-            shopping: 0,
-            budget: 0,
+          price: Math.ceil((scoreCountry.costPerWeek * userData.Stay) / 7),
+          qualifications: {
+            nature: this.calculateQualification(scoreCountry.nature),
+            architecture: this.calculateQualification(
+              scoreCountry.architecture
+            ),
+            hiking: this.calculateQualification(scoreCountry.hiking),
+            winterSports: this.calculateQualification(
+              scoreCountry.wintersports
+            ),
+            beach: this.calculateQualification(scoreCountry.beach),
+            culture: this.calculateQualification(scoreCountry.culture),
+            culinary: this.calculateQualification(scoreCountry.culinary),
+            entertainment: this.calculateQualification(
+              scoreCountry.entertainment
+            ),
+            shopping: this.calculateQualification(scoreCountry.shopping),
+          },
+          scores: {
+            totalScore: 0,
+            attr: {
+              nature: 0,
+              architecture: 0,
+              hiking: 0,
+              winterSports: 0,
+              beach: 0,
+              culture: 0,
+              culinary: 0,
+              entertainment: 0,
+              shopping: 0,
+              budget: 0,
+            },
           },
         };
         mapCountry.properties.country = scoreCountry.ParentRegion;
         mapCountry.properties.name = scoreCountry.Region;
         // calculate the score for nature
-        const natureScore = this.calculateAttributeScore(
-          scoreCountry.nature,
+        res.scores.attr.nature = this.calculateAttributeScore(
+          res.qualifications.nature,
           userData.Attributes.Nature
         );
-        res.attr.nature = natureScore;
-        const architectureScore = this.calculateAttributeScore(
-          scoreCountry.architecture,
+        res.scores.attr.architecture = this.calculateAttributeScore(
+          res.qualifications.architecture,
           userData.Attributes.Architecture
         );
-        res.attr.architecture = architectureScore;
-        const hikingScore = this.calculateAttributeScore(
-          scoreCountry.hiking,
+        res.scores.attr.hiking = this.calculateAttributeScore(
+          res.qualifications.hiking,
           userData.Attributes.Hiking
         );
-        res.attr.hiking = hikingScore;
-        const wintersportsScore = this.calculateAttributeScore(
-          scoreCountry.wintersports,
+        res.scores.attr.winterSports = this.calculateAttributeScore(
+          res.qualifications.winterSports,
           userData.Attributes.Wintersports
         );
-        res.attr.winterSports = wintersportsScore;
-        const beachScore = this.calculateAttributeScore(
-          scoreCountry.beach,
+        res.scores.attr.beach = this.calculateAttributeScore(
+          res.qualifications.beach,
           userData.Attributes.Beach
         );
-        res.attr.beach = beachScore;
-        const cultureScore = this.calculateAttributeScore(
-          scoreCountry.culture,
+        res.scores.attr.culture = this.calculateAttributeScore(
+          res.qualifications.culture,
           userData.Attributes.Culture
         );
-        res.attr.culture = cultureScore;
-        const culinaryScore = this.calculateAttributeScore(
-          scoreCountry.culinary,
+        res.scores.attr.culinary = this.calculateAttributeScore(
+          res.qualifications.culinary,
           userData.Attributes.Culinary
         );
-        res.attr.culinary = culinaryScore;
-        const entertainmentScore = this.calculateAttributeScore(
-          scoreCountry.entertainment,
+        res.scores.attr.entertainment = this.calculateAttributeScore(
+          res.qualifications.entertainment,
           userData.Attributes.Entertainment
         );
-        res.attr.entertainment = entertainmentScore;
-        const shoppingScore = this.calculateAttributeScore(
-          scoreCountry.shopping,
+        res.scores.attr.shopping = this.calculateAttributeScore(
+          res.qualifications.shopping,
           userData.Attributes.Shopping
         );
-        res.attr.shopping = shoppingScore;
-        const priceScore = this.calculatePriceScore(
-          scoreCountry.costPerWeek,
-          userData
-        );
-        res.price = Math.ceil((scoreCountry.costPerWeek * userData.Stay) / 7);
+        res.scores.attr.budget = this.calculatePriceScore(res.price, userData);
         var totalScore =
-          (natureScore +
-            hikingScore +
-            shoppingScore +
-            beachScore +
-            wintersportsScore +
-            entertainmentScore +
-            culinaryScore +
-            cultureScore +
-            architectureScore +
-            priceScore) /
+          (res.scores.attr.nature +
+            res.scores.attr.architecture +
+            res.scores.attr.hiking +
+            res.scores.attr.winterSports +
+            res.scores.attr.beach +
+            res.scores.attr.culture +
+            res.scores.attr.culinary +
+            res.scores.attr.entertainment +
+            res.scores.attr.shopping +
+            res.scores.attr.budget) /
           10;
         mapCountry.properties.score = totalScore;
-        res.totalScore = totalScore;
+        res.scores.totalScore = totalScore;
         this.allResults.push(res);
       }
     }
     setCountries(this.mapCountries);
-    this.allResults.sort((a, b) => b.totalScore - a.totalScore);
-    console.log(this.allResults);
-    // results = results.filter(
-    //   (a) => a.price <= this.getBudgetCeiling(userData.Budget)
-    // );
-    setResults(this.allResults.slice(0, 10));
-    setAllScores(this.allResults);
+    this.allResults.sort((a, b) => b.scores.totalScore - a.scores.totalScore);
+    setResults(this.allResults);
   };
-  calculateAttributeScore = (countryScore, userScore) => {
+  calculateQualification = (qualification) => {
     let numScore;
-    switch (countryScore) {
+    switch (qualification) {
       case "--":
         numScore = 0;
         break;
@@ -147,13 +142,15 @@ class LoadCountriesTask {
       default:
         numScore = 50;
     }
-    return 100 - Math.abs(userScore - numScore);
+    return numScore;
+  };
+  calculateAttributeScore = (countryScore, userScore) => {
+    return 100 - Math.abs(userScore - countryScore);
   };
   calculatePriceScore = (countryPrice, userData) => {
     //change price per week to # days that user going to stay
-    const price = (countryPrice * userData.Stay) / 7;
     const maxBudget = this.getBudgetCeiling(userData.Budget);
-    if (price <= maxBudget) {
+    if (countryPrice <= maxBudget) {
       return 100;
     }
     // const pGroup = this.getPriceGroup(price);

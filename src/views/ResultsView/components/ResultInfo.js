@@ -6,9 +6,9 @@ import { PieChartComponent } from "./PieChartComponent";
 const ResultInfo = ({ country, label, stay }) => {
   const [scores, setScores] = useState([]);
   const loadData = () => {
-    var s = Object.keys(country.attr)?.map((key) => ({
+    var s = Object.keys(country.qualifications)?.map((key) => ({
       name: key,
-      value: country.attr[key],
+      value: country.qualifications[key],
     }));
     setScores(s);
   };
@@ -28,9 +28,14 @@ const ResultInfo = ({ country, label, stay }) => {
       <p style={{ fontSize: "x-small" }}>
         Scores of {country.region} based on your preferences:
       </p>
-      <DetailScores scores={scores} />
+      <DetailScores
+        scores={Object.keys(country.scores.attr)?.map((key) => ({
+          name: key,
+          value: country.scores.attr[key],
+        }))}
+      />
       <hr />
-      <p>Overall score: {country.totalScore}/100</p>
+      <p>Overall score: {country.scores.totalScore}/100</p>
     </div>
   );
 };

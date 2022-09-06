@@ -5,10 +5,10 @@ import * as myConstant from "../../../data/constantData";
 export const AttributeScore = ({ score, index }) => {
   return (
     <Row>
-      <Col xs={4} style={{ textAlign: "left", fontSize: "small" }}>
+      <Col xs={6} style={{ textAlign: "left", fontSize: "small" }}>
         {score.name}
       </Col>
-      <Col xs={5}>
+      <Col xs={6}>
         <div
           style={{
             height: "15px",
@@ -17,10 +17,6 @@ export const AttributeScore = ({ score, index }) => {
               myConstant.COLORS[index % myConstant.COLORS.length],
           }}
         ></div>
-      </Col>
-
-      <Col xs={1} style={{ textAlign: "right", fontSize: "small" }}>
-        {score.value}%
       </Col>
     </Row>
   );

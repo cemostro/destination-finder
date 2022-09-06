@@ -9,7 +9,6 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [fileRetrieved, setFileRetrieved] = useState([]);
   const [results, setResults] = useState([]);
-  const [allScores, setAllScores] = useState([]);
   const [userData, setUserData] = useState({
     StartDate: new Date(),
     Stay: 4,
@@ -37,8 +36,7 @@ const App = () => {
         fileRetrieved,
         userData,
         setCountries,
-        setResults,
-        setAllScores
+        setResults
       );
     }
   };
@@ -55,7 +53,6 @@ const App = () => {
           userData={userData}
           setUserData={setUserData}
           results={results}
-          allScores={allScores}
         />
       )}
     </div>

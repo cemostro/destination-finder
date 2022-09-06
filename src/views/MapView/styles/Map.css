@@ -2,3 +2,7 @@
 .leaflet-container{
     background-color: rgb(163,206,255);
   }
+
+  .leaflet-popup-content-wrapper,.leaflet-popup-tip {
+    background-color: #193D4B;
+  }
