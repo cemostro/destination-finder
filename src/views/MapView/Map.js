@@ -4,6 +4,7 @@ import { MapContainer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./styles/Map.css";
 import { CountryPopup } from "./components/CountryPopup";
+import { IndexLabel } from "./components/IndexLabel";
 
 const position = [51.0967884, 5.9671304];
 
@@ -19,15 +20,27 @@ const Map = ({ countries, results }) => {
 
   const onEachCountry = (country, layer) => {
     var score = country.properties.score;
-    var c = results.find((r) => r.uname === country.properties.u_name);
+    var c = results.findIndex((r) => r.uname === country.properties.u_name);
     layer.options.fillColor = getColor(score);
     const popupContent = ReactDOMServer.renderToString(
-      <CountryPopup country={c} />
+      <CountryPopup country={results[c]} />
+    );
+    const tooltipContent = ReactDOMServer.renderToString(
+      <IndexLabel ind={c} />
     );
     layer.bindPopup(popupContent, {
       direction: "auto",
       keepInView: true,
     });
+    if (c < 10) {
+      layer.options.fillColor = getColor(100);
+      layer.bindTooltip(tooltipContent, {
+        permanent: true,
+        opacity: 1,
+        direction: "center",
+      });
+    }
+
     layer.on({
       mouseover: highlightFeature,
       mouseout: resetHighlight,
