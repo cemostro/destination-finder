@@ -5,6 +5,9 @@ import * as myConstant from "../../../data/constantData";
 export const CustomizationContainer = ({ userData, setUserData }) => {
   return (
     <div>
+      <p style={{ textAlign: "start", fontSize: "small" }}>
+        Rate the topics according to their importance to you:
+      </p>
       {Object.keys(userData.Attributes).map((item, index) => (
         <div
           style={{
