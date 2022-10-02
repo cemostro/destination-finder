@@ -10,7 +10,6 @@ const position = [51.0967884, 5.9671304];
 
 const Map = ({ countries, results }) => {
   const geoJsonLayer = useRef(null);
-  const mapRef = useRef(null);
 
   useEffect(() => {
     if (geoJsonLayer.current) {
@@ -18,15 +17,20 @@ const Map = ({ countries, results }) => {
     }
   });
 
+  useEffect(() => {
+    console.log("***");
+    console.log(results[0].region);
+  }, [results]);
+
   const onEachCountry = (country, layer) => {
-    var score = country.properties.score;
     var c = results.findIndex((r) => r.uname === country.properties.u_name);
+    var score = country.properties.result.scores.totalScore;
     layer.options.fillColor = getColor(score);
     const popupContent = ReactDOMServer.renderToString(
-      <CountryPopup country={results[c]} />
+      <CountryPopup country={country.properties.result} />
     );
     const tooltipContent = ReactDOMServer.renderToString(
-      <IndexLabel ind={c} />
+      <IndexLabel ind={c + 1} />
     );
     layer.bindPopup(popupContent, {
       direction: "auto",
@@ -92,7 +96,6 @@ const Map = ({ countries, results }) => {
         style={{ height: "100vh", width: "auto" }}
         zoom={4}
         center={position}
-        ref={mapRef}
         // zoomControl={false}
         // touchZoom={false}
         // doubleClickZoom={false}

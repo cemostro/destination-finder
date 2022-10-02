@@ -112,7 +112,7 @@ class LoadCountriesTask {
             res.scores.attr.shopping +
             res.scores.attr.budget) /
           10;
-        mapCountry.properties.score = totalScore;
+        mapCountry.properties.result = res;
         res.scores.totalScore = totalScore;
         this.allResults.push(res);
       }

@@ -8,7 +8,7 @@ export const Results = ({ results, stay }) => {
     <div style={{ padding: "10px 0", height: "100%", overflow: "hidden" }}>
       <p style={{ textAlign: "left" }}>Best destinations for you:</p>
       <div style={{ overflow: "auto", height: "90%" }}>
-        <Accordion>
+        <Accordion defaultActiveKey={0}>
           {results?.map((item, index) => (
             <Accordion.Item eventKey={index} key={index}>
               <Accordion.Header>

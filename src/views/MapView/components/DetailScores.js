@@ -3,7 +3,6 @@ import { AttributeScore } from "./AttributeScore";
 import { Row, Col } from "react-bootstrap";
 
 export const DetailScores = ({ scores }) => {
-  console.log(scores);
   return (
     <div>
       <div
