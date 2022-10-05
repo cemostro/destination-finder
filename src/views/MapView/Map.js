@@ -1,14 +1,16 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import * as ReactDOMServer from "react-dom/server";
 import { MapContainer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./styles/Map.css";
 import { CountryPopup } from "./components/CountryPopup";
 import { IndexLabel } from "./components/IndexLabel";
+import Legend from "./components/Legend";
 
 const position = [51.0967884, 5.9671304];
 
 const Map = ({ countries, results }) => {
+  const [map, setMap] = useState(null);
   const geoJsonLayer = useRef(null);
 
   useEffect(() => {
@@ -16,11 +18,6 @@ const Map = ({ countries, results }) => {
       geoJsonLayer.current.clearLayers().addData(countries);
     }
   });
-
-  useEffect(() => {
-    console.log("***");
-    console.log(results[0].region);
-  }, [results]);
 
   const onEachCountry = (country, layer) => {
     var c = results.findIndex((r) => r.uname === country.properties.u_name);
@@ -96,6 +93,7 @@ const Map = ({ countries, results }) => {
         style={{ height: "100vh", width: "auto" }}
         zoom={4}
         center={position}
+        ref={setMap}
         // zoomControl={false}
         // touchZoom={false}
         // doubleClickZoom={false}
@@ -109,6 +107,7 @@ const Map = ({ countries, results }) => {
           data={countries}
           onEachFeature={onEachCountry}
         />
+        <Legend map={map} />
       </MapContainer>
     </div>
   );
