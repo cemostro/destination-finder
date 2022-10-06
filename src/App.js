@@ -10,7 +10,7 @@ const App = () => {
   const [fileRetrieved, setFileRetrieved] = useState([]);
   const [results, setResults] = useState([]);
   const [userData, setUserData] = useState({
-    StartDate: new Date(),
+    isPriceImportant: false,
     Stay: 4,
     Budget: 1,
     Attributes: {
@@ -45,7 +45,7 @@ const App = () => {
 
   return (
     <div style={{ height: "100vh" }}>
-      {countries.length === 0 || results.length === 0 ? (
+      {countries.length === 0 ? (
         <Loading />
       ) : (
         <TravelRecommender

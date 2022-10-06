@@ -37,7 +37,7 @@ const Map = ({ countries, setActiveResult }) => {
       <IndexLabel ind={c} />
     );
 
-    if (c < 10) {
+    if (c < 10 && score > 0) {
       layer.options.fillColor = getColor(100);
       layer.bindTooltip(tooltipContent, {
         permanent: true,

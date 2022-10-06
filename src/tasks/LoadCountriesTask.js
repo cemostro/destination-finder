@@ -59,6 +59,8 @@ class LoadCountriesTask {
             },
           },
         };
+        var budgetScore = this.calculatePriceScore(res.price, userData);
+        var isAffordable = !userData.isPriceImportant || budgetScore === 100;
         mapCountry.properties.country = scoreCountry.ParentRegion;
         mapCountry.properties.name = scoreCountry.Region;
         // calculate the score for nature
@@ -98,19 +100,20 @@ class LoadCountriesTask {
           res.qualifications.shopping,
           userData.Attributes.Shopping
         );
-        var budgetScore = this.calculatePriceScore(res.price, userData);
-        var totalScore =
-          (res.scores.attr.nature +
-            res.scores.attr.architecture +
-            res.scores.attr.hiking +
-            res.scores.attr.wintersports +
-            res.scores.attr.beach +
-            res.scores.attr.culture +
-            res.scores.attr.culinary +
-            res.scores.attr.entertainment +
-            res.scores.attr.shopping +
-            budgetScore) /
-          10;
+
+        var totalScore = isAffordable
+          ? (res.scores.attr.nature +
+              res.scores.attr.architecture +
+              res.scores.attr.hiking +
+              res.scores.attr.wintersports +
+              res.scores.attr.beach +
+              res.scores.attr.culture +
+              res.scores.attr.culinary +
+              res.scores.attr.entertainment +
+              res.scores.attr.shopping +
+              budgetScore) /
+            10
+          : 0;
 
         res.scores.totalScore = totalScore;
         mapCountry.properties.result = res;
@@ -124,6 +127,8 @@ class LoadCountriesTask {
     );
     setCountries(this.mapCountries);
     this.allResults.sort((a, b) => b.scores.totalScore - a.scores.totalScore);
+    this.allResults = this.allResults.filter((a) => a.scores.totalScore > 0);
+    console.log(this.allResults);
     setResults(this.allResults.slice(0, 10));
   };
   calculateQualification = (qualification) => {
