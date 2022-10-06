@@ -73,8 +73,10 @@ export const BarChart = ({ score, benchmark, color, showBenchmark }) => {
       {showBenchmark && (
         <span
           style={{
-            width: "3px",
-            height: "13px",
+            width: "5px",
+            height: "15px",
+            borderLeft: "solid 1px #fff",
+            borderRight: "solid 1px #fff",
             backgroundColor: "#000",
             position: "absolute",
             left: `calc(100% * (${benchmark} / 100))`,
