@@ -3,10 +3,10 @@ import "../../../App.css";
 import { DetailScores } from "./DetailScores";
 import { PieChartComponent } from "./PieChartComponent";
 
-const ResultInfo = ({ country, label, stay }) => {
+const ResultInfo = ({ country, label, stay, userData }) => {
   const [scores, setScores] = useState([]);
   const loadData = () => {
-    var s = Object.keys(country.qualifications)?.map((key) => ({
+    var s = Object.keys(country.scores.attr)?.map((key) => ({
       name: key,
       value: country.qualifications[key],
     }));
@@ -26,13 +26,17 @@ const ResultInfo = ({ country, label, stay }) => {
       </p>
       <hr />
       <p style={{ fontSize: "x-small" }}>
-        Scores of {country.region} based on your preferences:
+        Scores of {country.region} based on your preferences: (The bar
+        demonstrates the score of the given attribute for {country.region} and
+        the black line shows your preference - hover on the bars for more
+        detail)
       </p>
       <DetailScores
-        scores={Object.keys(country.scores.attr)?.map((key) => ({
+        scores={Object.keys(country.qualifications)?.map((key) => ({
           name: key,
-          value: country.scores.attr[key],
+          value: country.qualifications[key],
         }))}
+        userData={userData}
       />
       <hr />
       <p>Overall score: {country.scores.totalScore}/100</p>

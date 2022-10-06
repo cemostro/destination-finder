@@ -6,10 +6,11 @@ import "./styles/Map.css";
 import { CountryPopup } from "./components/CountryPopup";
 import { IndexLabel } from "./components/IndexLabel";
 import Legend from "./components/Legend";
+import { click } from "@testing-library/user-event/dist/click";
 
 const position = [51.0967884, 5.9671304];
 
-const Map = ({ countries, results }) => {
+const Map = ({ countries, setActiveResult }) => {
   const [map, setMap] = useState(null);
   const geoJsonLayer = useRef(null);
 
@@ -20,19 +21,22 @@ const Map = ({ countries, results }) => {
   });
 
   const onEachCountry = (country, layer) => {
-    var c = results.findIndex((r) => r.uname === country.properties.u_name);
+    var c = countries.findIndex(
+      (r) => r.properties.u_name === country.properties.u_name
+    );
     var score = country.properties.result.scores.totalScore;
     layer.options.fillColor = getColor(score);
     const popupContent = ReactDOMServer.renderToString(
       <CountryPopup country={country.properties.result} />
     );
-    const tooltipContent = ReactDOMServer.renderToString(
-      <IndexLabel ind={c + 1} />
-    );
     layer.bindPopup(popupContent, {
       direction: "auto",
       keepInView: true,
     });
+    const tooltipContent = ReactDOMServer.renderToString(
+      <IndexLabel ind={c} />
+    );
+
     if (c < 10) {
       layer.options.fillColor = getColor(100);
       layer.bindTooltip(tooltipContent, {
@@ -45,6 +49,7 @@ const Map = ({ countries, results }) => {
     layer.on({
       mouseover: highlightFeature,
       mouseout: resetHighlight,
+      dblclick: clickCountry,
     });
   };
 
@@ -73,6 +78,17 @@ const Map = ({ countries, results }) => {
     });
   };
 
+  const clickCountry = (e) => {
+    let ind = countries.findIndex(
+      (r) => r.properties.u_name === e.target.feature.properties.u_name
+    );
+    if (ind < 10) {
+      setActiveResult(ind);
+    } else {
+      setActiveResult(-1);
+    }
+  };
+
   const getColor = (d) => {
     return d > 90
       ? "#109146"
@@ -94,9 +110,9 @@ const Map = ({ countries, results }) => {
         zoom={4}
         center={position}
         ref={setMap}
+        doubleClickZoom={false}
         // zoomControl={false}
         // touchZoom={false}
-        // doubleClickZoom={false}
         // scrollWheelZoom={false}
         // boxZoom={false}
         // keyboard={false}

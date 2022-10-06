@@ -2,7 +2,6 @@ import L from "leaflet";
 import { useEffect } from "react";
 import "../styles/Map.css";
 function Legend({ map }) {
-  console.log(map);
   const getColor = (d) => {
     return d > 90
       ? "#109146"

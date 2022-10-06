@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../App.css";
 import { Row, Col } from "react-bootstrap";
@@ -6,6 +7,7 @@ import Preferences from "../PreferencesView/Preferences";
 import { Results } from "../ResultsView/Results";
 
 const TravelRecommender = ({ countries, userData, setUserData, results }) => {
+  const [activeResult, setActiveResult] = useState(0);
   return (
     <div className="App">
       <Row style={{ height: "100%" }}>
@@ -16,10 +18,15 @@ const TravelRecommender = ({ countries, userData, setUserData, results }) => {
           ></Preferences>
         </Col>
         <Col xs={6} style={{ height: "100%" }}>
-          <Map countries={countries} results={results} />
+          <Map countries={countries} setActiveResult={setActiveResult} />
         </Col>
         <Col style={{ height: "100%" }}>
-          <Results results={results.slice(0, 10)} stay={userData.Stay} />
+          <Results
+            results={results}
+            stay={userData.Stay}
+            activeResult={activeResult}
+            userData={userData}
+          />
         </Col>
       </Row>
     </div>

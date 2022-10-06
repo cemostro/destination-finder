@@ -46,6 +46,24 @@ input.stay-days{
   color: #000;
 }
 
+.bar-chart .tooltip-box{
+  visibility: hidden;
+  width: 300px;
+  background-color: black;
+  color: #fff;
+  font-size: small;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5px;
+  bottom: 100%;
+  right:-100px;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 100;
+}
+.bar-chart:hover .tooltip-box {
+  visibility: visible;
+}
 
 @keyframes App-logo-spin {
   from {
