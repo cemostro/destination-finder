@@ -12,13 +12,18 @@ export const Results = ({ results, stay, activeResult, userData }) => {
       setActiveIndex(-1);
     } else {
       setActiveIndex(activeResult);
+      accordElem.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "start",
+      });
     }
   }, [activeResult]);
   return (
     <div style={{ padding: "10px 0", height: "100%", overflow: "hidden" }}>
       <p style={{ textAlign: "left" }}>Best destinations for you:</p>
-      <div style={{ overflow: "auto", height: "90%" }}>
-        <Accordion activeKey={activeIndex} ref={accordElem}>
+      <div style={{ overflow: "auto", height: "90%" }} ref={accordElem}>
+        <Accordion activeKey={activeIndex}>
           {results?.map((item, index) => (
             <Accordion.Item eventKey={index} key={index}>
               <Accordion.Header
@@ -27,6 +32,11 @@ export const Results = ({ results, stay, activeResult, userData }) => {
                     setActiveIndex(-1);
                   } else {
                     setActiveIndex(index);
+                    accordElem.current.scrollIntoView({
+                      behavior: "smooth",
+                      block: "middle",
+                      inline: "nearest",
+                    });
                   }
                 }}
               >
