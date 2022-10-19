@@ -6,7 +6,6 @@ import "./styles/Map.css";
 import { CountryPopup } from "./components/CountryPopup";
 import { IndexLabel } from "./components/IndexLabel";
 import Legend from "./components/Legend";
-import { click } from "@testing-library/user-event/dist/click";
 
 const position = [51.0967884, 5.9671304];
 

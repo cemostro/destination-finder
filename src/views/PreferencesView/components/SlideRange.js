@@ -1,18 +1,5 @@
 import React, { useState } from "react";
 
-const calculateBackgroundColor = ({ value, color }) => {
-  return (
-    "linear-gradient(to right," +
-    color +
-    " 0%, " +
-    color +
-    " " +
-    value +
-    "%, #fff " +
-    value +
-    "%, white 100%"
-  );
-};
 const SlideRange = ({ attrName, userData, setUserData, color }) => {
   const [value, setValue] = useState(userData.Attributes[attrName]);
   return (

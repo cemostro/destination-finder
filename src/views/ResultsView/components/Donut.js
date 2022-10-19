@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { PieChart, Pie, Tooltip, Cell } from "recharts";
+import React from "react";
+import { PieChart, Pie, Cell } from "recharts";
 import "../../../App.css";
 import * as myConstant from "../../../data/constantData";
 

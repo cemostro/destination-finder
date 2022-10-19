@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form, Row, Col } from "react-bootstrap";
+import React from "react";
+import { Row, Col } from "react-bootstrap";
 import "../../../App.css";
 import SlideRange from "./SlideRange";
 

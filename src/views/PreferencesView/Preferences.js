@@ -1,5 +1,4 @@
 import React from "react";
-import { Form, Row, Col } from "react-bootstrap";
 import "../../App.css";
 import Budget from "./components/Budget";
 import { CustomizationContainer } from "./components/CustomizationContainer";
