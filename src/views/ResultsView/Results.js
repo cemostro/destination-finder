@@ -6,7 +6,6 @@ import ResultInfo from "./components/ResultInfo";
 export const Results = ({ results, stay, activeResult, userData }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const accordElem = useRef(null);
-  console.log(results[0]);
   useEffect(() => {
     if (results.length > 0) {
       if (activeResult === activeIndex) {

@@ -4,7 +4,6 @@ import { DetailScores } from "./DetailScores";
 import { PieChartComponent } from "./PieChartComponent";
 
 const ResultInfo = ({ country, label, stay, userData }) => {
-  console.log(country);
   const [scores, setScores] = useState([]);
   const loadData = () => {
     var s = Object.keys(country.scores.attr)?.map((key) => ({

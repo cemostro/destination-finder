@@ -128,7 +128,6 @@ class LoadCountriesTask {
     setCountries(this.mapCountries);
     this.allResults.sort((a, b) => b.scores.totalScore - a.scores.totalScore);
     this.allResults = this.allResults.filter((a) => a.scores.totalScore > 0);
-    console.log(this.allResults);
     setResults(this.allResults.slice(0, 10));
   };
   calculateQualification = (qualification) => {
