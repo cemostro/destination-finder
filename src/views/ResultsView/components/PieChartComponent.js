@@ -3,6 +3,9 @@ import Donut from "./Donut";
 import { Row, Col } from "react-bootstrap";
 
 export const PieChartComponent = ({ scores, label, countryName, region }) => {
+  if (region === "Sweden and Denmark") {
+    console.log(scores);
+  }
   return (
     <Row style={{ textAlign: "left" }}>
       <Col>

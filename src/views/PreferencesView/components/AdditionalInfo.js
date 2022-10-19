@@ -4,30 +4,41 @@ import "../../../App.css";
 
 const AdditionalInfo = ({ userData, setUserData }) => {
   return (
-    <Row>
-      <Col>
-        <p style={{ textAlign: "left" }}>Maximum # of days:</p>
-        <input
-          type="number"
-          className="stay-days"
-          defaultValue={userData.Stay}
-          onChange={(e) => setUserData({ ...userData, Stay: e.target.value })}
+    <div>
+      <Form>
+        <Form.Check
+          type="checkbox"
+          id="custom-switch"
+          label="Filter out the destinations over the  budget"
+          onChange={(e) =>
+            setUserData({ ...userData, isPriceImportant: e.target.checked })
+          }
         />
-      </Col>
-      <Col>
-        <hr style={{ marginBottom: "1.2rem" }} />
-        <Form>
-          <Form.Check
-            type="checkbox"
-            id="custom-switch"
-            label="Price is crucial"
-            onChange={(e) =>
-              setUserData({ ...userData, isPriceImportant: e.target.checked })
-            }
+      </Form>
+      <hr style={{ marginBottom: "1.2rem" }} />
+      <Row>
+        <Col style={{ justifyContent: "center" }}>
+          <p
+            style={{
+              textAlign: "left",
+              justifyContent: "center",
+              lineHeight: "44px",
+              margin: 0,
+            }}
+          >
+            Maximum # of days:
+          </p>
+        </Col>
+        <Col>
+          <input
+            type="number"
+            className="stay-days"
+            defaultValue={userData.Stay}
+            onChange={(e) => setUserData({ ...userData, Stay: e.target.value })}
           />
-        </Form>
-      </Col>
-    </Row>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

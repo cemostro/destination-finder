@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { BarChart } from "./BarChart";
+import { BarChart } from "../../SharedComponents/BarChart";
 import * as myConstant from "../../../data/constantData";
 
 export const AttributeScore = ({ score, index, userPref }) => {

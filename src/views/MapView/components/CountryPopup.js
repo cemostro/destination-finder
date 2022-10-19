@@ -20,6 +20,7 @@ export const CountryPopup = ({ country }) => {
             name: key,
             value: country.qualifications[key],
           }))}
+          price={country.price}
         />
       </div>
     </div>
