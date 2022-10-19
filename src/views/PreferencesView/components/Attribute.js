@@ -1,37 +1,28 @@
 import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import "../../../App.css";
+import SlideRange from "./SlideRange";
 
 const Attribute = ({ attrName, userData, setUserData }) => {
   return (
-    <Form>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "5px",
-        }}
-      >
-        <Form.Label style={{ display: "inline-block", width: "60%" }}>
-          {attrName}
-        </Form.Label>
-        <Form.Range
-          style={{ display: "inline-block" }}
-          step={25}
-          defaultValue={userData.Attributes[attrName]}
-          onChange={(e) => {
-            setUserData({
-              ...userData,
-              Attributes: {
-                ...userData.Attributes,
-                [attrName]: e.target.valueAsNumber,
-              },
-            });
-          }}
-        ></Form.Range>
-      </div>
-    </Form>
+    <Row
+      style={{
+        display: "flex",
+        alignItems: "center",
+        padding: "5px",
+        height: "100%",
+      }}
+    >
+      <Col xs={4}>{attrName}</Col>
+      <Col xs={8}>
+        <SlideRange
+          attrName={attrName}
+          userData={userData}
+          setUserData={setUserData}
+          color="#000"
+        />
+      </Col>
+    </Row>
   );
 };
 

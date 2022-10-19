@@ -18,6 +18,8 @@ export const CustomizationContainer = ({ userData, setUserData }) => {
             textAlign: "left",
             padding: "0 5px",
             margin: "5px 0 0 0",
+            height: "40px",
+            alignItems: "center",
           }}
           key={index}
         >

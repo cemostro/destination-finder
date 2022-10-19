@@ -4,6 +4,7 @@
   height: 100%;
   background-color: #193D4B;
   color: white;
+  accent-color: #282c34;
 }
 
 .App-logo {
@@ -64,6 +65,8 @@ input.stay-days{
 .bar-chart:hover .tooltip-box {
   visibility: visible;
 }
+
+
 
 @keyframes App-logo-spin {
   from {
