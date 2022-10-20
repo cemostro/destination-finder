@@ -29,7 +29,7 @@ const ResultInfo = ({ country, label, stay, userData }) => {
         Scores of {country.region} based on your preferences: (The bar
         demonstrates the score of the given attribute for {country.region} and
         the black line shows your preference - hover on the bars for more
-        detail)
+        details)
       </p>
       <DetailScores
         scores={Object.keys(country.qualifications)?.map((key) => ({
