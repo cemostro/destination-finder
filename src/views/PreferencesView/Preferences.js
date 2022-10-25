@@ -6,7 +6,7 @@ import AdditionalInfo from "./components/AdditionalInfo";
 
 const Preferences = ({ userData, setUserData }) => {
   return (
-    <div style={{ height: "100%", overflow: "auto" }}>
+    <div style={{ height: "100%", overflow-y: "auto", overflow-x: "hidden" }}>
       <div style={{ padding: "10px 0" }}>
         <Budget userData={userData} setUserData={setUserData} />
       </div>
