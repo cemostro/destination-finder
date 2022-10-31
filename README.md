@@ -8,8 +8,8 @@ A demo of this interface is available on https://destination-finder.netlify.app/
 You need git to clone our repository.
 
 ```
-git clone https://github.com/assalism/travel-recommender.git
-cd travel-recommender/
+git clone https://github.com/asalnesar/destination-finder.git
+cd destination-finder/
 ```
 
 ### Install Dependencies
