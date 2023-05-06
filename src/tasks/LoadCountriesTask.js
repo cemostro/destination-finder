@@ -44,6 +44,20 @@ class LoadCountriesTask {
             ),
             shopping: this.calculateQualification(scoreCountry.shopping),
           },
+          travelMonths: {
+            jan: this.calculateTravelMonth(scoreCountry, countryScores, "jan"),
+            feb: this.calculateTravelMonth(scoreCountry, countryScores, "feb"),
+            mar: this.calculateTravelMonth(scoreCountry, countryScores, "mar"),
+            apr: this.calculateTravelMonth(scoreCountry, countryScores, "apr"),
+            may: this.calculateTravelMonth(scoreCountry, countryScores, "may"),
+            jun: this.calculateTravelMonth(scoreCountry, countryScores, "jun"),
+            jul: this.calculateTravelMonth(scoreCountry, countryScores, "jul"),
+            aug: this.calculateTravelMonth(scoreCountry, countryScores, "aug"),
+            sep: this.calculateTravelMonth(scoreCountry, countryScores, "sep"),
+            oct: this.calculateTravelMonth(scoreCountry, countryScores, "oct"),
+            nov: this.calculateTravelMonth(scoreCountry, countryScores, "nov"),
+            dec: this.calculateTravelMonth(scoreCountry, countryScores, "dec"),
+          },
           scores: {
             totalScore: 0,
             attr: {
@@ -133,6 +147,37 @@ class LoadCountriesTask {
   calculateQualification = (qualification) => {
     let numScore;
     switch (qualification) {
+      case "--":
+        numScore = 0;
+        break;
+      case "-":
+        numScore = 25;
+        break;
+      case "o":
+        numScore = 50;
+        break;
+      case "+":
+        numScore = 75;
+        break;
+      case "++":
+        numScore = 100;
+        break;
+      default:
+        numScore = 50;
+    }
+    return numScore;
+  };
+  calculateTravelMonth = (scoreCountry, countryScores, month) => {
+    let numScore;
+    switch (scoreCountry[month]) {
+      case "":
+        if (scoreCountry.ParentRegion === "") {
+          numScore = 0;
+          break;
+        }
+        let parent = countryScores.find((c) => c.Region === scoreCountry.ParentRegion);
+        numScore = this.calculateTravelMonth(parent, countryScores, month);
+        break;
       case "--":
         numScore = 0;
         break;
