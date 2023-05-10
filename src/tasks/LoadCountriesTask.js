@@ -44,20 +44,20 @@ class LoadCountriesTask {
             ),
             shopping: this.calculateQualification(scoreCountry.shopping),
           },
-          travelMonths: {
-            jan: this.calculateTravelMonth(scoreCountry, countryScores, "jan"),
-            feb: this.calculateTravelMonth(scoreCountry, countryScores, "feb"),
-            mar: this.calculateTravelMonth(scoreCountry, countryScores, "mar"),
-            apr: this.calculateTravelMonth(scoreCountry, countryScores, "apr"),
-            may: this.calculateTravelMonth(scoreCountry, countryScores, "may"),
-            jun: this.calculateTravelMonth(scoreCountry, countryScores, "jun"),
-            jul: this.calculateTravelMonth(scoreCountry, countryScores, "jul"),
-            aug: this.calculateTravelMonth(scoreCountry, countryScores, "aug"),
-            sep: this.calculateTravelMonth(scoreCountry, countryScores, "sep"),
-            oct: this.calculateTravelMonth(scoreCountry, countryScores, "oct"),
-            nov: this.calculateTravelMonth(scoreCountry, countryScores, "nov"),
-            dec: this.calculateTravelMonth(scoreCountry, countryScores, "dec"),
-          },
+          travelMonths: [
+            this.calculateTravelMonth(scoreCountry, countryScores, "jan"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "feb"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "mar"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "apr"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "may"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "jun"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "jul"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "aug"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "sep"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "oct"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "nov"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "dec"),
+          ],
           scores: {
             totalScore: 0,
             attr: {
@@ -74,6 +74,7 @@ class LoadCountriesTask {
           },
         };
         var budgetScore = this.calculatePriceScore(res.price, userData);
+        var travelMonthScore = this.calculateTravelMonthScore(res.travelMonths, userData.Months);
         var isAffordable = !userData.isPriceImportant || budgetScore === 100;
         mapCountry.properties.country = scoreCountry.ParentRegion;
         mapCountry.properties.name = scoreCountry.Region;
@@ -116,7 +117,7 @@ class LoadCountriesTask {
         );
 
         var totalScore = isAffordable
-          ? (res.scores.attr.nature +
+          ? +((res.scores.attr.nature +
               res.scores.attr.architecture +
               res.scores.attr.hiking +
               res.scores.attr.wintersports +
@@ -125,8 +126,9 @@ class LoadCountriesTask {
               res.scores.attr.culinary +
               res.scores.attr.entertainment +
               res.scores.attr.shopping +
-              budgetScore) /
-            10
+              budgetScore +
+              travelMonthScore) /
+            11).toFixed(2)
           : 0;
 
         res.scores.totalScore = totalScore;
@@ -200,6 +202,16 @@ class LoadCountriesTask {
   };
   calculateAttributeScore = (countryScore, userScore) => {
     return 100 - Math.abs(userScore - countryScore);
+  };
+  calculateTravelMonthScore = (countryTravelMonths, userTravelMonths) => {
+    let maxScore = 0;
+    for (let i = 0; i < countryTravelMonths.length; i++) {
+      let monthScore = 100 - Math.abs(userTravelMonths[i] - countryTravelMonths[i]);
+      if (monthScore > maxScore) {
+        maxScore = monthScore;
+      }
+    }
+    return maxScore;
   };
   calculatePriceScore = (countryPrice, userData) => {
     //change price per week to # days that user going to stay
