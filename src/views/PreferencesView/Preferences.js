@@ -3,6 +3,7 @@ import "../../App.css";
 import Budget from "./components/Budget";
 import { CustomizationContainer } from "./components/CustomizationContainer";
 import AdditionalInfo from "./components/AdditionalInfo";
+import TravelMonths from "./components/TravelMonths";
 
 const Preferences = ({ userData, setUserData }) => {
   return (
@@ -12,6 +13,9 @@ const Preferences = ({ userData, setUserData }) => {
       </div>
       <div>
         <AdditionalInfo userData={userData} setUserData={setUserData} />
+      </div>
+      <div>
+        <TravelMonths userData={userData} setUserData={setUserData} />
       </div>
       <div style={{ padding: "10px 0" }}>
         <CustomizationContainer userData={userData} setUserData={setUserData} />
