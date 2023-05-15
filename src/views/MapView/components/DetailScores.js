@@ -1,8 +1,9 @@
 import React from "react";
 import { AttributeScore } from "./AttributeScore";
+import { TravelMonthScore } from "../../SharedComponents/TravelMonthScore";
 import { Row, Col } from "react-bootstrap";
 
-export const DetailScores = ({ scores, price }) => {
+export const DetailScores = ({ scores, travelMonths, price }) => {
   return (
     <div>
       <div
@@ -16,6 +17,9 @@ export const DetailScores = ({ scores, price }) => {
         <div style={{ width: "100%" }}>
           <p style={{ margin: 0 }}>Price: {price}€</p>
           <hr style={{ marginBottom: "1.2rem", marginTop: 0 }} />
+        </div>
+        <div style={{ marginBottom: "10px" }}>
+          <TravelMonthScore travelMonths={travelMonths} />
         </div>
         <div>
           {scores.map((entry, index) => (
