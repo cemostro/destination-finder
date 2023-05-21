@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { ButtonGroup, ToggleButton } from "react-bootstrap";
 import "../../../App.css";
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
@@ -21,17 +21,21 @@ const TravelMonths = ({ userData, setUserData }) => {
     let buttons = [];
     for (let j = 0; j < 4; j++) {
       buttons.push(
-        <Button
-          variant={userData.Months[i * 4 + j] === 100 ? "primary" : "secondary"}
+        <ToggleButton
+          key={`${i * 4 + j} - ${userData.Months[i * 4 + j]}`}
+          id={`radio-${i * 4 + j}`}
+          type="checkbox"
           style={{ width: "20%" }}
-          onClick={() => handleMonthChange(i * 4 + j)}
+          variant="outline-primary"
+          checked={userData.Months[i * 4 + j] === 100}
+          onChange={(e) => handleMonthChange(i * 4 + j)}
         >
           {months[i * 4 + j]}
-        </Button>
+        </ToggleButton>
       );
     }
     buttonGroups.push(
-      <ButtonGroup size="sm" style={{ width: "100%" }}>
+      <ButtonGroup size="sm" style={{ width: "100%" }} key={`${i * 4}`}>
         {buttons}
       </ButtonGroup>
     );
