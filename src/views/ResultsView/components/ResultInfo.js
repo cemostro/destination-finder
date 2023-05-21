@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../../App.css";
 import { DetailScores } from "./DetailScores";
 import { PieChartComponent } from "./PieChartComponent";
+import { TravelMonthsComponent } from "./TravelMonthsComponent";
 
 const ResultInfo = ({ country, label, stay, userData }) => {
   const [scores, setScores] = useState([]);
@@ -24,6 +25,11 @@ const ResultInfo = ({ country, label, stay, userData }) => {
       <p style={{ paddingTop: "10px" }}>
         Price for {stay} days: {country.price}€
       </p>
+      <hr />
+      <TravelMonthsComponent
+        countryName={country.region}
+        travelMonths={country.travelMonths}
+        userData={userData} />
       <hr />
       <p style={{ fontSize: "x-small" }}>
         Scores of {country.region} based on your preferences: (The bar

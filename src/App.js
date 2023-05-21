@@ -13,7 +13,7 @@ const App = () => {
     isPriceImportant: false,
     Stay: 4,
     Budget: 1,
-    Months: Array(12).fill(100),
+    Months: Array(12).fill(0),
     Attributes: {
       Nature: 50,
       Architecture: 50,

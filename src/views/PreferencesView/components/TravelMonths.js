@@ -25,17 +25,17 @@ const TravelMonths = ({ userData, setUserData }) => {
           key={`${i * 4 + j} - ${userData.Months[i * 4 + j]}`}
           id={`radio-${i * 4 + j}`}
           type="checkbox"
-          style={{ width: "20%" }}
+          style={{ width: "20%", }}
           variant="outline-primary"
           checked={userData.Months[i * 4 + j] === 100}
           onChange={(e) => handleMonthChange(i * 4 + j)}
         >
-          {months[i * 4 + j]}
+          <p style={{ fontSize: "0.8rem", margin: 0, color: "white" }}>{months[i * 4 + j]}</p>
         </ToggleButton>
       );
     }
     buttonGroups.push(
-      <ButtonGroup size="sm" style={{ width: "100%" }} key={`${i * 4}`}>
+      <ButtonGroup size="sm" style={{ width: "95%" }} key={`${i * 4}`}>
         {buttons}
       </ButtonGroup>
     );
@@ -43,8 +43,13 @@ const TravelMonths = ({ userData, setUserData }) => {
 
 
   return (
-    <div style={{ margin: "10px" }}>
+    <div>
+      <hr />
+      <p style={{ textAlign: "left", justifyContent: "center", marginBottom: "1.2rem" }}>
+        Preferred Travel Months:
+      </p>
       {buttonGroups}
+      <hr />
     </div>
   );
 };

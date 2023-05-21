@@ -206,6 +206,7 @@ class LoadCountriesTask {
   calculateTravelMonthScore = (countryTravelMonths, userTravelMonths) => {
     let maxScore = 0;
     for (let i = 0; i < countryTravelMonths.length; i++) {
+      if (userTravelMonths[i] === 0) continue;
       let monthScore = 100 - Math.abs(userTravelMonths[i] - countryTravelMonths[i]);
       if (monthScore > maxScore) {
         maxScore = monthScore;

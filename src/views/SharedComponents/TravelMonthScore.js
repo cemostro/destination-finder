@@ -55,7 +55,12 @@ export const TravelMonthScore = ({ travelMonths }) => {
     <div>
       <ProgressBar>
         {travelMonths.map((entry, index) => (
-          <ProgressBar style={{ backgroundColor: scoreToColor(entry) }} now={8.333} key={index} label={<p style={{ color: "black", fontSize: "10px" }}>{indexToMonth(index)}</p>} />
+          <ProgressBar
+            style={{ backgroundColor: scoreToColor(entry) }}
+            now={8.333}
+            key={index}
+            label={<p style={{ color: "black", fontSize: "10px", margin: 0 }}>{indexToMonth(index)}</p>}
+          />
         ))}
       </ProgressBar>
     </div>
