@@ -32,9 +32,7 @@ const indexToMonth = (index) => {
   }
 }
 
-export const TravelMonthsComponent = ({ countryName, travelMonths, userData }) => {
-  console.log(userData);
-  
+export const TravelMonthsComponent = ({ countryName, travelMonths, userData }) => {  
   const bestTravelMonth = useMemo(() => {
     let bestMonth = "JANUARY";
     let maxScore = 0;

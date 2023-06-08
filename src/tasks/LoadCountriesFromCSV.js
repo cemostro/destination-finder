@@ -1,14 +1,19 @@
+import papa from "papaparse";
 import mapData from "../data/regions.json";
-import axios from 'axios';
 
-class LoadCountriesTask {
+class LoadCountriesFromCSV {
   allResults = [];
+  countryScoresUrl =
+    "https://raw.githubusercontent.com/assalism/travel-data/main/regionmodel.csv";
   mapCountries = mapData.features;
   load = (setFileRetrieved) => {
-    axios.get('http://localhost:1337/api/regions?populate=*')
-      .then((response) => {
-        setFileRetrieved(response.data.data?.map((region) => region.attributes));
-      });
+    papa.parse(this.countryScoresUrl, {
+      download: true,
+      header: true,
+      complete: (result) => {
+        setFileRetrieved(result.data);
+      },
+    });
   };
   processCountries = (countryScores, userData, setCountries, setResults) => {
     for (let i = 0; i < this.mapCountries.length; i++) {
@@ -18,34 +23,40 @@ class LoadCountriesTask {
       );
       if (scoreCountry != null) {
         var res = {
-          country: scoreCountry.ParentRegion.data.attributes.Region,
+          country: scoreCountry.ParentRegion,
           region: scoreCountry.Region,
           uname: scoreCountry.u_name,
           price: Math.ceil((scoreCountry.costPerWeek * userData.Stay) / 7),
           qualifications: {
-            nature: this.calculateRecursiveScore(scoreCountry, countryScores, "nature"),
-            architecture: this.calculateRecursiveScore(scoreCountry, countryScores, "architecture"),
-            hiking: this.calculateRecursiveScore(scoreCountry, countryScores, "hiking"),
-            wintersports: this.calculateRecursiveScore(scoreCountry, countryScores, "wintersports"),
-            beach: this.calculateRecursiveScore(scoreCountry, countryScores, "beach"),
-            culture: this.calculateRecursiveScore(scoreCountry, countryScores, "culture"),
-            culinary: this.calculateRecursiveScore(scoreCountry, countryScores, "culinary"),
-            entertainment: this.calculateRecursiveScore(scoreCountry, countryScores, "entertainment"),
-            shopping: this.calculateRecursiveScore(scoreCountry, countryScores, "shopping"),
+            nature: this.calculateQualification(scoreCountry.nature),
+            architecture: this.calculateQualification(
+              scoreCountry.architecture
+            ),
+            hiking: this.calculateQualification(scoreCountry.hiking),
+            wintersports: this.calculateQualification(
+              scoreCountry.wintersports
+            ),
+            beach: this.calculateQualification(scoreCountry.beach),
+            culture: this.calculateQualification(scoreCountry.culture),
+            culinary: this.calculateQualification(scoreCountry.culinary),
+            entertainment: this.calculateQualification(
+              scoreCountry.entertainment
+            ),
+            shopping: this.calculateQualification(scoreCountry.shopping),
           },
           travelMonths: [
-            this.calculateRecursiveScore(scoreCountry, countryScores, "jan"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "feb"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "mar"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "apr"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "may"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "jun"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "jul"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "aug"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "sep"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "oct"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "nov"),
-            this.calculateRecursiveScore(scoreCountry, countryScores, "dec"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "jan"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "feb"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "mar"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "apr"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "may"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "jun"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "jul"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "aug"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "sep"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "oct"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "nov"),
+            this.calculateTravelMonth(scoreCountry, countryScores, "dec"),
           ],
           scores: {
             totalScore: 0,
@@ -65,7 +76,7 @@ class LoadCountriesTask {
         var budgetScore = this.calculatePriceScore(res.price, userData);
         var travelMonthScore = this.calculateTravelMonthScore(res.travelMonths, userData.Months);
         var isAffordable = !userData.isPriceImportant || budgetScore === 100;
-        mapCountry.properties.country = scoreCountry.ParentRegion.data.attributes.Region;
+        mapCountry.properties.country = scoreCountry.ParentRegion;
         mapCountry.properties.name = scoreCountry.Region;
         // calculate the score for nature
         res.scores.attr.nature = this.calculateAttributeScore(
@@ -107,16 +118,16 @@ class LoadCountriesTask {
 
         var totalScore = isAffordable
           ? +((res.scores.attr.nature +
-            res.scores.attr.architecture +
-            res.scores.attr.hiking +
-            res.scores.attr.wintersports +
-            res.scores.attr.beach +
-            res.scores.attr.culture +
-            res.scores.attr.culinary +
-            res.scores.attr.entertainment +
-            res.scores.attr.shopping +
-            budgetScore +
-            travelMonthScore) /
+              res.scores.attr.architecture +
+              res.scores.attr.hiking +
+              res.scores.attr.wintersports +
+              res.scores.attr.beach +
+              res.scores.attr.culture +
+              res.scores.attr.culinary +
+              res.scores.attr.entertainment +
+              res.scores.attr.shopping +
+              budgetScore +
+              travelMonthScore) /
             11).toFixed(2)
           : 0;
 
@@ -135,13 +146,59 @@ class LoadCountriesTask {
     this.allResults = this.allResults.filter((a) => a.scores.totalScore > 0);
     setResults(this.allResults.slice(0, 10));
   };
-  calculateRecursiveScore = (scoreCountry, countryScores, attribute) => {
-    if (scoreCountry[attribute] === null) {
-      let parent = countryScores.find((c) => c.Region === scoreCountry.ParentRegion.data.attributes.Region);
-      if (!parent) return 0;
-      return this.calculateRecursiveScore(parent, countryScores, attribute);
+  calculateQualification = (qualification) => {
+    let numScore;
+    switch (qualification) {
+      case "--":
+        numScore = 0;
+        break;
+      case "-":
+        numScore = 25;
+        break;
+      case "o":
+        numScore = 50;
+        break;
+      case "+":
+        numScore = 75;
+        break;
+      case "++":
+        numScore = 100;
+        break;
+      default:
+        numScore = 50;
     }
-    return scoreCountry[attribute];
+    return numScore;
+  };
+  calculateTravelMonth = (scoreCountry, countryScores, month) => {
+    let numScore;
+    switch (scoreCountry[month]) {
+      case "":
+        if (scoreCountry.ParentRegion === "") {
+          numScore = 0;
+          break;
+        }
+        let parent = countryScores.find((c) => c.Region === scoreCountry.ParentRegion);
+        numScore = this.calculateTravelMonth(parent, countryScores, month);
+        break;
+      case "--":
+        numScore = 0;
+        break;
+      case "-":
+        numScore = 25;
+        break;
+      case "o":
+        numScore = 50;
+        break;
+      case "+":
+        numScore = 75;
+        break;
+      case "++":
+        numScore = 100;
+        break;
+      default:
+        numScore = 50;
+    }
+    return numScore;
   };
   calculateAttributeScore = (countryScore, userScore) => {
     return 100 - Math.abs(userScore - countryScore);
@@ -167,6 +224,7 @@ class LoadCountriesTask {
     return 0;
   };
 
+  calculateTimingScore = (country, userData) => {};
   getPriceGroup = (price) => {
     if (price <= 100) {
       return 1;
