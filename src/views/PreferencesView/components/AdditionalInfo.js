@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import "../../../App.css";
 
 const AdditionalInfo = ({ userData, setUserData }) => {
@@ -21,29 +21,6 @@ const AdditionalInfo = ({ userData, setUserData }) => {
           recommendations just like any other attribute.
         </span>
       </Form>
-      <hr style={{ marginBottom: "1.2rem" }} />
-      <Row>
-        <Col style={{ justifyContent: "center" }}>
-          <p
-            style={{
-              textAlign: "left",
-              justifyContent: "center",
-              lineHeight: "44px",
-              margin: 0,
-            }}
-          >
-            Maximum # of days:
-          </p>
-        </Col>
-        <Col>
-          <input
-            type="number"
-            className="stay-days"
-            defaultValue={userData.Stay}
-            onChange={(e) => setUserData({ ...userData, Stay: e.target.value })}
-          />
-        </Col>
-      </Row>
     </div>
   );
 };

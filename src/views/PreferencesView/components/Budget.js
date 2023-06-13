@@ -1,96 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
+import { debounce } from "lodash";
 import "../../../App.css";
 
 const Budget = ({ userData, setUserData }) => {
+
+  const [value, setValue] = useState(userData.Budget);
+
+  const onChangeDebounced = debounce((value) => {
+    setUserData({
+      ...userData,
+      Budget: parseInt(value),
+    });
+  }, 1000);
+
   return (
     <Form>
       <p style={{ textAlign: "left" }}>Budget</p>
       <Row>
         <Col>
-          <Form.Check
-            type="radio"
-            label="Up to 100€"
-            name="group2"
-            id="radio1"
-            value={1}
-            defaultChecked={true}
-            onChange={(event) =>
-              setUserData({
-                ...userData,
-                Budget: parseInt(event.target.value),
-              })
-            }
-          />
-          <Form.Check
-            type="radio"
-            label="100€-300€"
-            name="group2"
-            id="radio2"
-            value={2}
-            onChange={(event) =>
-              setUserData({
-                ...userData,
-                Budget: parseInt(event.target.value),
-              })
-            }
-          />
-          <Form.Check
-            type="radio"
-            label="300€-500€"
-            name="group2"
-            id="radio3"
-            value={3}
-            onChange={(event) =>
-              setUserData({
-                ...userData,
-                Budget: parseInt(event.target.value),
-              })
-            }
-          />
+          <p style={{ opacity: "0.7", fontSize: "0.8em" }}>
+            {"Low (< €250 per week)"}
+          </p>
         </Col>
         <Col>
-          <Form.Check
-            type="radio"
-            label="500€-1000€"
-            name="group2"
-            id="radio4"
-            value={4}
-            onChange={(event) =>
-              setUserData({
-                ...userData,
-                Budget: parseInt(event.target.value),
-              })
-            }
-          />
-
-          <Form.Check
-            type="radio"
-            label="1000€-2000€"
-            name="group2"
-            id="radio5"
-            value={5}
-            onChange={(event) =>
-              setUserData({
-                ...userData,
-                Budget: parseInt(event.target.value),
-              })
-            }
-          />
-          <Form.Check
-            type="radio"
-            label="2000€ & above"
-            name="group2"
-            id="radio6"
-            value={6}
-            onChange={(event) =>
-              setUserData({
-                ...userData,
-                Budget: parseInt(event.target.value),
-              })
-            }
-          />
+          <p style={{ opacity: "0.7", fontSize: "0.8em" }}>
+            {"Medium (ca. €750 per week)"}
+          </p>
         </Col>
+        <Col>
+          <p style={{ opacity: "0.7", fontSize: "0.8em" }}>
+            {"High (> €1250 per week)"}
+          </p>
+        </Col>
+      </Row>
+      <Row>
+        <Form.Range
+          style={{ padding: "0 15px" }}
+          value={value}
+          onChange={(event) => {
+            setValue(event.target.value)
+            onChangeDebounced(event.target.value)
+          }
+          }
+        />
       </Row>
     </Form>
   );

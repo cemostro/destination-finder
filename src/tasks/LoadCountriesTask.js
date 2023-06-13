@@ -21,7 +21,7 @@ class LoadCountriesTask {
           country: scoreCountry.ParentRegion.data.attributes.Region,
           region: scoreCountry.Region,
           uname: scoreCountry.u_name,
-          price: Math.ceil((scoreCountry.costPerWeek * userData.Stay) / 7),
+          price: scoreCountry.costPerWeek,
           qualifications: {
             nature: this.calculateRecursiveScore(scoreCountry, countryScores, "nature"),
             architecture: this.calculateRecursiveScore(scoreCountry, countryScores, "architecture"),
@@ -158,55 +158,17 @@ class LoadCountriesTask {
     return maxScore;
   };
   calculatePriceScore = (countryPrice, userData) => {
-    //change price per week to # days that user going to stay
-    const maxBudget = this.getBudgetCeiling(userData.Budget);
+    let maxBudget = 0;
+    if (userData.Budget < 100) {
+      maxBudget = 250 + (userData.Budget / 100) * 1000;
+    } else {
+      maxBudget = Number.MAX_VALUE;
+    }
     if (countryPrice <= maxBudget) {
       return 100;
-    }
-    // const pGroup = this.getPriceGroup(price);
-    return 0;
-  };
-
-  getPriceGroup = (price) => {
-    if (price <= 100) {
-      return 1;
-    } else if (price > 100 && price <= 300) {
-      return 2;
-    } else if (price > 300 && price <= 500) {
-      return 3;
-    } else if (price > 500 && price <= 1000) {
-      return 4;
-    } else if (price > 1000 && price <= 2000) {
-      return 5;
     } else {
-      return 6;
+      return Math.max(0, 100 - ((countryPrice - maxBudget) / maxBudget) * 100);
     }
-  };
-  getBudgetCeiling = (budget) => {
-    let maxBudget = 0;
-    switch (budget) {
-      case 1:
-        maxBudget = 100;
-        break;
-      case 2:
-        maxBudget = 300;
-        break;
-      case 3:
-        maxBudget = 500;
-        break;
-      case 4:
-        maxBudget = 1000;
-        break;
-      case 5:
-        maxBudget = 2000;
-        break;
-      case 6:
-        maxBudget = Number.MAX_VALUE;
-        break;
-      default:
-        break;
-    }
-    return maxBudget;
   };
 }
 

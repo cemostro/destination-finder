@@ -23,7 +23,7 @@ const ResultInfo = ({ country, label, stay, userData }) => {
         region={country.region}
       />
       <p style={{ paddingTop: "10px" }}>
-        Price for {stay} days: {country.price}€
+        Average price per week: {country.price}€
       </p>
       <hr />
       <TravelMonthsComponent

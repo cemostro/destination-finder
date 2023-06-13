@@ -15,7 +15,7 @@ export const DetailScores = ({ scores, travelMonths, price }) => {
         }}
       >
         <div style={{ width: "100%" }}>
-          <p style={{ margin: 0 }}>Price: {price}€</p>
+          <p style={{ margin: 0 }}>Price per week: {price}€</p>
           <hr style={{ marginBottom: "1.2rem", marginTop: 0 }} />
         </div>
         <div style={{ marginBottom: "10px" }}>
