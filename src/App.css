@@ -106,6 +106,15 @@ input.stay-days{
   border-color:  transparent transparent black transparent;
 }
 
+.nav-link{
+  color: #fff !important;
+}
+
+.nav-link.active {
+  background-color: #0d6efd !important;
+  border: none !important;
+}
+
 
 
 @keyframes App-logo-spin {
