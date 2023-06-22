@@ -13,16 +13,44 @@ const App = () => {
     isPriceImportant: false,
     Budget: 50,
     Months: Array(12).fill(0),
+    PresetType: "None",
     Attributes: {
-      Nature: 50,
-      Architecture: 50,
-      Hiking: 50,
-      Wintersports: 50,
-      Beach: 50,
-      Culture: 50,
-      Culinary: 50,
-      Entertainment: 50,
-      Shopping: 50,
+      Nature: {
+        weight: 1,
+        score: 50,
+      },
+      Architecture: {
+        weight: 1,
+        score: 50,
+      },
+      Hiking: {
+        weight: 1,
+        score: 50,
+      },
+      Wintersports: {
+        weight: 1,
+        score: 50,
+      },
+      Beach: {
+        weight: 1,
+        score: 50,
+      },
+      Culture: {
+        weight: 1,
+        score: 50,
+      },
+      Culinary: {
+        weight: 1,
+        score: 50,
+      },
+      Entertainment: {
+        weight: 1,
+        score: 50,
+      },
+      Shopping: {
+        weight: 1,
+        score: 50,
+      },
     },
   });
   const load = () => {

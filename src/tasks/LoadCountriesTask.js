@@ -49,16 +49,44 @@ class LoadCountriesTask {
           ],
           scores: {
             totalScore: 0,
+            presetTypeScore: 0,
             attr: {
-              nature: 0,
-              architecture: 0,
-              hiking: 0,
-              wintersports: 0,
-              beach: 0,
-              culture: 0,
-              culinary: 0,
-              entertainment: 0,
-              shopping: 0,
+              nature: {
+                weight: userData.Attributes.Nature.weight,
+                score: 0,
+              },
+              architecture: {
+                weight: userData.Attributes.Architecture.weight,
+                score: 0,
+              },
+              hiking: {
+                weight: userData.Attributes.Hiking.weight,
+                score: 0,
+              },
+              wintersports: {
+                weight: userData.Attributes.Wintersports.weight,
+                score: 0,
+              },
+              beach: {
+                weight: userData.Attributes.Beach.weight,
+                score: 0,
+              },
+              culture: {
+                weight: userData.Attributes.Culture.weight,
+                score: 0,
+              },
+              culinary: {
+                weight: userData.Attributes.Culinary.weight,
+                score: 0,
+              },
+              entertainment: {
+                weight: userData.Attributes.Entertainment.weight,
+                score: 0,
+              },
+              shopping: {
+                weight: userData.Attributes.Shopping.weight,
+                score: 0,
+              },
             },
           },
         };
@@ -67,57 +95,57 @@ class LoadCountriesTask {
         var isAffordable = !userData.isPriceImportant || budgetScore === 100;
         mapCountry.properties.country = scoreCountry.ParentRegion.data.attributes.Region;
         mapCountry.properties.name = scoreCountry.Region;
+        res.scores.presetTypeScore = this.calculatePresetTypeScore(userData.PresetType.toLowerCase(), res.qualifications);
         // calculate the score for nature
-        res.scores.attr.nature = this.calculateAttributeScore(
+        res.scores.attr.nature.score = this.calculateAttributeScore(
           res.qualifications.nature,
-          userData.Attributes.Nature
+          userData.Attributes.Nature.score
         );
-        res.scores.attr.architecture = this.calculateAttributeScore(
+        res.scores.attr.architecture.score = this.calculateAttributeScore(
           res.qualifications.architecture,
-          userData.Attributes.Architecture
+          userData.Attributes.Architecture.score
         );
-        res.scores.attr.hiking = this.calculateAttributeScore(
+        res.scores.attr.hiking.score = this.calculateAttributeScore(
           res.qualifications.hiking,
-          userData.Attributes.Hiking
+          userData.Attributes.Hiking.score
         );
-        res.scores.attr.wintersports = this.calculateAttributeScore(
+        res.scores.attr.wintersports.score = this.calculateAttributeScore(
           res.qualifications.wintersports,
-          userData.Attributes.Wintersports
+          userData.Attributes.Wintersports.score
         );
-        res.scores.attr.beach = this.calculateAttributeScore(
+        res.scores.attr.beach.score = this.calculateAttributeScore(
           res.qualifications.beach,
-          userData.Attributes.Beach
+          userData.Attributes.Beach.score
         );
-        res.scores.attr.culture = this.calculateAttributeScore(
+        res.scores.attr.culture.score = this.calculateAttributeScore(
           res.qualifications.culture,
-          userData.Attributes.Culture
+          userData.Attributes.Culture.score
         );
-        res.scores.attr.culinary = this.calculateAttributeScore(
+        res.scores.attr.culinary.score = this.calculateAttributeScore(
           res.qualifications.culinary,
-          userData.Attributes.Culinary
+          userData.Attributes.Culinary.score
         );
-        res.scores.attr.entertainment = this.calculateAttributeScore(
+        res.scores.attr.entertainment.score = this.calculateAttributeScore(
           res.qualifications.entertainment,
-          userData.Attributes.Entertainment
+          userData.Attributes.Entertainment.score
         );
-        res.scores.attr.shopping = this.calculateAttributeScore(
+        res.scores.attr.shopping.score = this.calculateAttributeScore(
           res.qualifications.shopping,
-          userData.Attributes.Shopping
+          userData.Attributes.Shopping.score
         );
 
+        let totalAttrScore;
+        if (userData.PresetType === "None") {
+          totalAttrScore = this.calculateAttributeScoreAverage(res.scores.attr);
+        } else {
+          totalAttrScore = {score: res.scores.presetTypeScore, weight: 1};
+        }
+        
         var totalScore = isAffordable
-          ? +((res.scores.attr.nature +
-            res.scores.attr.architecture +
-            res.scores.attr.hiking +
-            res.scores.attr.wintersports +
-            res.scores.attr.beach +
-            res.scores.attr.culture +
-            res.scores.attr.culinary +
-            res.scores.attr.entertainment +
-            res.scores.attr.shopping +
+          ? +((totalAttrScore.score +
             budgetScore +
             travelMonthScore) /
-            11).toFixed(2)
+            (2 + totalAttrScore.weight)).toFixed(2)
           : 0;
 
         res.scores.totalScore = totalScore;
@@ -145,6 +173,18 @@ class LoadCountriesTask {
   };
   calculateAttributeScore = (countryScore, userScore) => {
     return 100 - Math.abs(userScore - countryScore);
+  };
+  calculateAttributeScoreAverage = (attributes) => {
+    let totalScore = 0;
+    let totalWeight = 0;
+    for (const attribute in attributes) {
+      totalScore += attributes[attribute].score * attributes[attribute].weight;
+      totalWeight += attributes[attribute].weight;
+    }
+    return {score : totalScore, weight : totalWeight};
+  };
+  calculatePresetTypeScore = (attributeName, qualifications) => {
+    return qualifications[attributeName];
   };
   calculateTravelMonthScore = (countryTravelMonths, userTravelMonths) => {
     let maxScore = 0;

@@ -9,7 +9,7 @@ const ResultInfo = ({ country, label, stay, userData }) => {
   const loadData = () => {
     var s = Object.keys(country.scores.attr)?.map((key) => ({
       name: key,
-      value: country.scores.attr[key],
+      value: country.scores.attr[key].score,
     }));
     setScores(s);
   };

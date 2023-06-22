@@ -16,7 +16,10 @@ const SlideRange = ({ attrName, userData, setUserData, color }) => {
             ...userData,
             Attributes: {
               ...userData.Attributes,
-              [attrName]: e.target.valueAsNumber,
+              [attrName]: {
+                ...userData.Attributes[attrName],
+                score: e.target.valueAsNumber
+              },
             },
           });
         }}

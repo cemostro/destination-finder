@@ -4,7 +4,7 @@ import { AttributeScore } from "./AttributeScore";
 export const DetailScores = ({ scores, userData }) => {
   const getUserData = (attrName) => {
     var key = attrName.charAt(0).toUpperCase() + attrName.slice(1);
-    return userData.Attributes[key];
+    return userData.Attributes[key].score;
   };
   return (
     <div style={{ padding: "0px 10px" }}>
