@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from "react";
-import { ButtonGroup, ToggleButton } from "react-bootstrap";
+import { ButtonGroup, ToggleButton, Button } from "react-bootstrap";
 import "../../../App.css";
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
@@ -48,9 +48,17 @@ const TravelMonths = ({ userData, setUserData }) => {
   return (
     <div>
       <hr />
-      <p style={{ textAlign: "left", justifyContent: "center", marginBottom: "1.2rem" }}>
+      <p style={{ textAlign: "left", justifyContent: "center", margin: 0 }}>
         Preferred Travel Months:
       </p>
+      <Button variant="link" size="sm" style={{ marginLeft: "50%" }} onClick={() => {
+        setUserData({
+          ...userData,
+          Months: userData.Months[0] ? Array(12).fill(0) : Array(12).fill(100),
+        });
+      }}>
+        Select/Unselect All
+      </Button>
       {buttonGroups}
       <hr />
     </div>

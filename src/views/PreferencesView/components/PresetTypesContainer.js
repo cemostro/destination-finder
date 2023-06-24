@@ -19,12 +19,27 @@ export const PresetTypesContainer = ({ userData, setUserData }) => {
                             className="preset-badge"
                             id={`preset-${i * 3 + j}`}
                             key={`${i * 3 + j} - ${userData.PresetType}`}
-                            style={{ backgroundColor: userData.PresetType === Object.keys(userData.Attributes)[i * 3 + j] ? myConstant.COLORS[i * 3 + j] : undefined }}
+                            style={{ backgroundColor: userData.PresetType.includes(Object.keys(userData.Attributes)[i * 3 + j]) ? myConstant.COLORS[i * 3 + j] : undefined }}
                             onClick={() => {
-                                setUserData({
-                                    ...userData,
-                                    PresetType: Object.keys(userData.Attributes)[i * 3 + j],
-                                });
+                                const index = userData.PresetType.indexOf(Object.keys(userData.Attributes)[i * 3 + j]);
+                                if (index !== -1) {
+                                    setUserData({
+                                        ...userData,
+                                        PresetType: userData.PresetType.slice(0, index).concat(userData.PresetType.slice(index + 1)),
+                                    });
+                                } else {
+                                    if (userData.PresetType.length < 3) {
+                                        setUserData({
+                                            ...userData,
+                                            PresetType: userData.PresetType.concat([Object.keys(userData.Attributes)[i * 3 + j]]),
+                                        });
+                                    } else {
+                                        setUserData({
+                                            ...userData,
+                                            PresetType: userData.PresetType.slice(1).concat([Object.keys(userData.Attributes)[i * 3 + j]]),
+                                        });
+                                    }
+                                }
                             }}
                         >
                             <FontAwesomeIcon icon={icons[i * 3 + j]} />
@@ -45,6 +60,9 @@ export const PresetTypesContainer = ({ userData, setUserData }) => {
 
     return (
         <div>
+            <p style={{ textAlign: "start", fontSize: "small" }}>
+                Choose up to 3 topics that interest you the most:
+            </p>
             {presetTypesRows}
         </div>
     );

@@ -95,7 +95,7 @@ class LoadCountriesTask {
         var isAffordable = !userData.isPriceImportant || budgetScore === 100;
         mapCountry.properties.country = scoreCountry.ParentRegion.data.attributes.Region;
         mapCountry.properties.name = scoreCountry.Region;
-        res.scores.presetTypeScore = this.calculatePresetTypeScore(userData.PresetType.toLowerCase(), res.qualifications);
+        res.scores.presetTypeScore = this.calculatePresetTypeScore(userData.PresetType, res.qualifications);
         // calculate the score for nature
         res.scores.attr.nature.score = this.calculateAttributeScore(
           res.qualifications.nature,
@@ -135,10 +135,10 @@ class LoadCountriesTask {
         );
 
         let totalAttrScore;
-        if (userData.PresetType === "None") {
+        if (userData.PresetType.length === 0) {
           totalAttrScore = this.calculateAttributeScoreAverage(res.scores.attr);
         } else {
-          totalAttrScore = {score: res.scores.presetTypeScore, weight: 1};
+          totalAttrScore = {score: res.scores.presetTypeScore, weight: userData.PresetType.length};
         }
         
         var totalScore = isAffordable
@@ -183,8 +183,12 @@ class LoadCountriesTask {
     }
     return {score : totalScore, weight : totalWeight};
   };
-  calculatePresetTypeScore = (attributeName, qualifications) => {
-    return qualifications[attributeName];
+  calculatePresetTypeScore = (attributeNames, qualifications) => {
+    let totalScore = 0;
+    for (const attributeName of attributeNames) {
+      totalScore += qualifications[attributeName.toLowerCase()];
+    }
+    return totalScore;
   };
   calculateTravelMonthScore = (countryTravelMonths, userTravelMonths) => {
     let maxScore = 0;

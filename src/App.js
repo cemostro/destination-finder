@@ -13,7 +13,7 @@ const App = () => {
     isPriceImportant: false,
     Budget: 50,
     Months: Array(12).fill(0),
-    PresetType: "None",
+    PresetType: [],
     Attributes: {
       Nature: {
         weight: 1,
