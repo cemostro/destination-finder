@@ -33,21 +33,21 @@
   color: #61dafb;
 }
 
-.react-datepicker__input-container input{
+.react-datepicker__input-container input {
   width: 100%;
   height: 44px;
 }
 
-input.stay-days{
+input.stay-days {
   width: 100%;
   height: 44px;
 }
 
-.dark-theme{
+.dark-theme {
   color: #000;
 }
 
-.bar-chart .tooltip-box{
+.bar-chart .tooltip-box {
   visibility: hidden;
   width: 300px;
   background-color: black;
@@ -57,11 +57,12 @@ input.stay-days{
   border-radius: 6px;
   padding: 5px 5px;
   bottom: 100%;
-  right:-100px;
+  right: -100px;
   /* Position the tooltip */
   position: absolute;
   z-index: 100;
 }
+
 .bar-chart:hover .tooltip-box {
   visibility: visible;
 }
@@ -74,14 +75,15 @@ input.stay-days{
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color:  black transparent transparent transparent;
+  border-color: black transparent transparent transparent;
 }
-.filter .tooltip-box{
+
+.filter .tooltip-box {
   visibility: hidden;
   width: 300px;
   background-color: black;
   color: #fff;
-  left:50px;
+  left: 50px;
   font-size: small;
   text-align: center;
   border-radius: 6px;
@@ -89,8 +91,9 @@ input.stay-days{
   /* Position the tooltip */
   position: absolute;
   z-index: 100;
-  
+
 }
+
 .filter:hover .tooltip-box {
   visibility: visible;
 }
@@ -103,10 +106,10 @@ input.stay-days{
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color:  transparent transparent black transparent;
+  border-color: transparent transparent black transparent;
 }
 
-.nav-link{
+.nav-link {
   color: #fff !important;
 }
 
@@ -115,12 +118,29 @@ input.stay-days{
   border: none !important;
 }
 
+.preset-badge {
+  background-color: #6c757d;
+  width: 100%;
+  color: #fff;
+  border-radius: 50rem;
+  margin-bottom: 20px;
+  cursor: pointer;
+  padding: 0.35em 0.15em;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
 
 
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

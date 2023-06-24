@@ -1,7 +1,10 @@
 import React, { useMemo } from "react";
 import * as myConstant from "../../../data/constantData";
-import { Card, Row, Col } from "react-bootstrap";
-import culinary from "../../../images/culinary.png";
+import { Row, Col, } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBurger, faTree, faLandmark, faPersonHiking, faPersonSkiing, faUmbrellaBeach, faToriiGate, faFilm, faBagShopping } from '@fortawesome/free-solid-svg-icons'
+
+const icons = [faTree, faLandmark, faPersonHiking, faPersonSkiing, faUmbrellaBeach, faToriiGate, faBurger, faFilm, faBagShopping]
 
 export const PresetTypesContainer = ({ userData, setUserData }) => {
 
@@ -12,12 +15,11 @@ export const PresetTypesContainer = ({ userData, setUserData }) => {
             for (let j = 0; j < 3; j++) {
                 cols.push(
                     <Col xs={4} s="auto" key={`preset-col-${i * 3 + j}`}>
-                        <Card
+                        <div
+                            className="preset-badge"
                             id={`preset-${i * 3 + j}`}
                             key={`${i * 3 + j} - ${userData.PresetType}`}
-                            border={userData.PresetType === Object.keys(userData.Attributes)[i * 3 + j] ? "primary" : undefined}
-                            className="mb-3"
-                            style={{ alignItems: "center", backgroundColor: myConstant.COLORS[i * 3 + j], cursor: "pointer" }}
+                            style={{ backgroundColor: userData.PresetType === Object.keys(userData.Attributes)[i * 3 + j] ? myConstant.COLORS[i * 3 + j] : undefined }}
                             onClick={() => {
                                 setUserData({
                                     ...userData,
@@ -25,11 +27,9 @@ export const PresetTypesContainer = ({ userData, setUserData }) => {
                                 });
                             }}
                         >
-                            <Card.Img variant="top" src={culinary} style={{ height: "100px", width: "100px" }} />
-                            <Card.Body>
-                                <Card.Text style={{ color: userData.PresetType === Object.keys(userData.Attributes)[i * 3 + j] ? "blue" : "white" }}>{Object.keys(userData.Attributes)[i * 3 + j]}</Card.Text>
-                            </Card.Body>
-                        </Card>
+                            <FontAwesomeIcon icon={icons[i * 3 + j]} />
+                            {Object.keys(userData.Attributes)[i * 3 + j]}
+                        </div>
                     </Col>
                 );
             }
