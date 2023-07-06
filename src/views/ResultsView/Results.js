@@ -3,7 +3,7 @@ import Accordion from "react-bootstrap/Accordion";
 import "../../App.css";
 import ResultInfo from "./components/ResultInfo";
 
-export const Results = ({ results, stay, activeResult, userData }) => {
+export const Results = ({ results, activeResult, userData }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const accordElem = useRef(null);
   useEffect(() => {
@@ -48,7 +48,6 @@ export const Results = ({ results, stay, activeResult, userData }) => {
                   <ResultInfo
                     country={item}
                     label={index + 1}
-                    stay={stay}
                     userData={userData}
                   />
                 </Accordion.Body>

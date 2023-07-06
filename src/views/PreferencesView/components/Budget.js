@@ -20,23 +20,25 @@ const Budget = ({ userData, setUserData }) => {
       <Row>
         <Col>
           <p style={{ opacity: "0.7", fontSize: "0.8em" }}>
-            {"Low (< €250 per week)"}
+            {"Low"}
           </p>
         </Col>
         <Col>
           <p style={{ opacity: "0.7", fontSize: "0.8em" }}>
-            {"Medium (ca. €750 per week)"}
+            {"Medium"}
           </p>
         </Col>
         <Col>
           <p style={{ opacity: "0.7", fontSize: "0.8em" }}>
-            {"High (> €1250 per week)"}
+            {"High"}
           </p>
         </Col>
       </Row>
       <Row>
         <Form.Range
           style={{ padding: "0 15px" }}
+          min={1}
+          max={10}
           value={value}
           onChange={(event) => {
             setValue(event.target.value)

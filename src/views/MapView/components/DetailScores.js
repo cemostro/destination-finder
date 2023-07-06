@@ -3,7 +3,7 @@ import { AttributeScore } from "./AttributeScore";
 import { TravelMonthScore } from "../../SharedComponents/TravelMonthScore";
 import { Row, Col } from "react-bootstrap";
 
-export const DetailScores = ({ scores, travelMonths, price }) => {
+export const DetailScores = ({ scores, travelMonths, budgetLevel }) => {
   return (
     <div>
       <div
@@ -15,7 +15,7 @@ export const DetailScores = ({ scores, travelMonths, price }) => {
         }}
       >
         <div style={{ width: "100%" }}>
-          <p style={{ margin: 0 }}>Price per week: {price}€</p>
+          <p style={{ margin: 0 }}>Budget Level: {`${budgetLevel} (${budgetLevel < 4 ? "Low" : budgetLevel < 8 ? "Medium" : "High"})`}</p>
           <hr style={{ marginBottom: "1.2rem", marginTop: 0 }} />
         </div>
         <div style={{ marginBottom: "10px" }}>

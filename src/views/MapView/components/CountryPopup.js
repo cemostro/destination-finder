@@ -21,7 +21,7 @@ export const CountryPopup = ({ country }) => {
             value: country.qualifications[key],
           }))}
           travelMonths={country.travelMonths}
-          price={country.price}
+          budgetLevel={country.budgetLevel}
         />
       </div>
     </div>
