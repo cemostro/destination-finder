@@ -7,7 +7,7 @@ class LoadCountriesTask {
   scoreCountries = [];
   mapCountries = mapData.features;
   load = (setFileRetrieved) => {
-    axios.get('http://localhost:1337/api/regions?populate=*')
+    axios.get('https://destination-finder-strapi.azurewebsites.net/api/regions?populate=*')
       .then((response) => {
         setFileRetrieved(response.data.data?.map((region) => region.attributes));
       });
