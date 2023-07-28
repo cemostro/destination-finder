@@ -109,6 +109,36 @@ input.stay-days {
   border-color: transparent transparent black transparent;
 }
 
+.prio-switch .tooltip-box {
+  visibility: hidden;
+  width: 300px;
+  background-color: black;
+  color: #fff;
+  transform: translateX(-90%) translateY(40%);
+  font-size: small;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5px;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 100;
+}
+
+.prio-switch:hover .tooltip-box {
+  visibility: visible;
+}
+
+.prio-switch .tooltip-box::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 88%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
 .nav-link {
   color: #fff !important;
 }

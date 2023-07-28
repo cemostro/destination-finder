@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import "../../../App.css";
 import SlideRange from "./SlideRange";
+import PrioritySwitch from "./PrioritySwitch";
 
 const Attribute = ({ attrName, userData, setUserData }) => {
   return (
@@ -14,13 +15,16 @@ const Attribute = ({ attrName, userData, setUserData }) => {
       }}
     >
       <Col xs={4}>{attrName}</Col>
-      <Col xs={8}>
+      <Col xs={7}>
         <SlideRange
           attrName={attrName}
           userData={userData}
           setUserData={setUserData}
           color="#000"
         />
+      </Col>
+      <Col xs={1}>
+        <PrioritySwitch attrName={attrName} userData={userData} setUserData={setUserData} />
       </Col>
     </Row>
   );

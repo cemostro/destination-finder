@@ -12,7 +12,7 @@ export const CustomizationContainer = ({ userData, setUserData }) => {
         <div
           style={{
             backgroundColor:
-              myConstant.COLORS[index % myConstant.COLORS.length],
+              userData.Attributes[item].weight === 0 ? "gray" :  myConstant.COLORS[index % myConstant.COLORS.length],
             borderRadius: "100",
             color: "#fff",
             textAlign: "left",
