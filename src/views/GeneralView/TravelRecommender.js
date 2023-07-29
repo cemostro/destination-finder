@@ -5,6 +5,7 @@ import { Row, Col } from "react-bootstrap";
 import Map from "../MapView/Map";
 import Preferences from "../PreferencesView/Preferences";
 import { Results } from "../ResultsView/Results";
+import { Tooltip } from 'react-tooltip'
 
 const TravelRecommender = ({ countries, userData, setUserData, results }) => {
   const [activeResult, setActiveResult] = useState(0);
@@ -29,6 +30,9 @@ const TravelRecommender = ({ countries, userData, setUserData, results }) => {
           />
         </Col>
       </Row>
+      <Tooltip id="prio-switch-tooltip" style={{width : "300px"}} />
+      <Tooltip id="additional-info-tooltip" style={{width : "300px"}} place="bottom" />
+      <Tooltip id="barchart-tooltip" style={{width : "300px"}} place="bottom" />
     </div>
   );
 };

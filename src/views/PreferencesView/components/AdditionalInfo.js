@@ -4,7 +4,12 @@ import "../../../App.css";
 
 const AdditionalInfo = ({ userData, setUserData }) => {
   return (
-    <div>
+    <div
+      data-tooltip-id="additional-info-tooltip"
+      data-tooltip-content="If you select the checkbox the over-budget destinations will be
+    filtered out. if it is not selected, price would have an impact on the
+    recommendations just like any other attribute."
+    >
       <Form className="filter">
         <Form.Check
           className="filter"
@@ -15,11 +20,6 @@ const AdditionalInfo = ({ userData, setUserData }) => {
             setUserData({ ...userData, isPriceImportant: e.target.checked })
           }
         ></Form.Check>
-        <span className="tooltip-box">
-          If you select the checkbox the over-budget destinations will be
-          filtered out. if it is not selected, price would have an impact on the
-          recommendations just like any other attribute.
-        </span>
       </Form>
     </div>
   );

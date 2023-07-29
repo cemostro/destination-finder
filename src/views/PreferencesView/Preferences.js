@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "../../App.css";
 import Budget from "./components/Budget";
 import { CustomizationContainer } from "./components/CustomizationContainer";
@@ -12,6 +12,8 @@ const Preferences = ({ userData, setUserData }) => {
 
   return (
     <div style={{ height: "100%", overflowY: "auto", overflowX: "hidden" }}>
+      <p style={{ textAlign: "left", paddingTop: "10px", fontWeight: "700", fontSize: "1.1em" }}>DestiRec - Travel Destination Recommender System</p>
+      <hr />
       <div style={{ padding: "10px 0" }}>
         <Budget userData={userData} setUserData={setUserData} />
       </div>
@@ -37,6 +39,8 @@ const Preferences = ({ userData, setUserData }) => {
         </Tabs>
 
       </div>
+      <hr />
+      <p style={{ textAlign: "left", fontSize: "0.8em" }}>(c) Asal Nesar Noubari, Cem Nasit Sarica and Wolfgang Wörndl (Technical University of Munich)</p>
     </div>
   );
 };

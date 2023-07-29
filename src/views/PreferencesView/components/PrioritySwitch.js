@@ -31,11 +31,13 @@ const PrioritySwitch = ({ attrName, userData, setUserData }) => {
     }
 
     return (
-        <div className="prio-switch">
+        <div
+            className="prio-switch"
+            data-tooltip-id="prio-switch-tooltip" data-tooltip-content="Click to change priority. 
+        Higher priority means that this attribute has a higher impact on the score. 
+        At the lowest setting, this attribute will not be considered in the score."
+        >
             <FontAwesomeIcon style={{ cursor: "pointer" }} icon={switchIcon} onClick={onClick} />
-            <span className="tooltip-box">
-                Click to change priority. Higher priority means that this attribute has a higher impact on the score. At the lowest setting, this attribute will not be considered in the score.
-            </span>
         </div>
 
     );

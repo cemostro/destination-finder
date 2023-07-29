@@ -47,98 +47,6 @@ input.stay-days {
   color: #000;
 }
 
-.bar-chart .tooltip-box {
-  visibility: hidden;
-  width: 300px;
-  background-color: black;
-  color: #fff;
-  font-size: small;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 5px;
-  bottom: 100%;
-  right: -100px;
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 100;
-}
-
-.bar-chart:hover .tooltip-box {
-  visibility: visible;
-}
-
-.bar-chart .tooltip-box::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: black transparent transparent transparent;
-}
-
-.filter .tooltip-box {
-  visibility: hidden;
-  width: 300px;
-  background-color: black;
-  color: #fff;
-  left: 50px;
-  font-size: small;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 5px;
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 100;
-
-}
-
-.filter:hover .tooltip-box {
-  visibility: visible;
-}
-
-.filter .tooltip-box::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent black transparent;
-}
-
-.prio-switch .tooltip-box {
-  visibility: hidden;
-  width: 300px;
-  background-color: black;
-  color: #fff;
-  transform: translateX(-90%) translateY(40%);
-  font-size: small;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 5px;
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 100;
-}
-
-.prio-switch:hover .tooltip-box {
-  visibility: visible;
-}
-
-.prio-switch .tooltip-box::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 88%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent black transparent;
-}
-
 .nav-link {
   color: #fff !important;
 }
@@ -163,7 +71,6 @@ input.stay-days {
   flex-wrap: nowrap;
   flex-direction: column;
 }
-
 
 
 @keyframes App-logo-spin {

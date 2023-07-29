@@ -68,8 +68,9 @@ export const BarChart = ({ score, benchmark, color, showBenchmark }) => {
         position: "relative",
         border: "solid 1px #868686",
       }}
+      data-tooltip-id="barchart-tooltip"
+      data-tooltip-content={getText()}
     >
-      <span className="tooltip-box">{getText()}</span>
 
       <div
         style={{
