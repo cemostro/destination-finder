@@ -72,6 +72,15 @@ input.stay-days {
   flex-direction: column;
 }
 
+.expand-bar {
+  height: 100%;
+  background-color: #282c34;
+  width: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 
 @keyframes App-logo-spin {
   from {

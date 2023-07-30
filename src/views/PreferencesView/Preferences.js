@@ -11,7 +11,7 @@ const Preferences = ({ userData, setUserData }) => {
   const [key, setKey] = useState('novice');
 
   return (
-    <div style={{ height: "100%", overflowY: "auto", overflowX: "hidden" }}>
+    <div style={{ height: "100%", overflowY: "auto", overflowX: "hidden", paddingRight: "5px" }}>
       <p style={{ textAlign: "left", paddingTop: "10px", fontWeight: "700", fontSize: "1.1em" }}>DestiRec - Travel Destination Recommender System</p>
       <hr />
       <div style={{ padding: "10px 0" }}>
