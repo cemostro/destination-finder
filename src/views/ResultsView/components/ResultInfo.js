@@ -18,7 +18,7 @@ const ResultInfo = ({ country, label, userData }) => {
     } else {
       s = userData.PresetType.map((key) => ({
         name: key.toLowerCase(),
-        value: country.scores.attr[key.toLowerCase()]?.score || 0,
+        value: country.qualifications[key.toLowerCase()],
         weight: 1,
       }));
     }
