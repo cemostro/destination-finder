@@ -11,7 +11,7 @@ const App = () => {
   const [results, setResults] = useState([]);
   const [userData, setUserData] = useState({
     isPriceImportant: false,
-    Budget: 6,
+    Budget: 55,
     Months: Array(12).fill(0),
     PresetType: [],
     Attributes: {

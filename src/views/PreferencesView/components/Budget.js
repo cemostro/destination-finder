@@ -37,8 +37,8 @@ const Budget = ({ userData, setUserData }) => {
       <Row>
         <Form.Range
           style={{ padding: "0 15px" }}
-          min={1}
-          max={10}
+          min={10}
+          max={100}
           value={value}
           onChange={(event) => {
             setValue(event.target.value)

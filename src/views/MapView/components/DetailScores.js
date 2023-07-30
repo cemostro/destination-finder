@@ -15,7 +15,7 @@ export const DetailScores = ({ scores, travelMonths, budgetLevel }) => {
         }}
       >
         <div style={{ width: "100%" }}>
-          <p style={{ margin: 0 }}>Budget Level: {`${budgetLevel} (${budgetLevel < 4 ? "Low" : budgetLevel < 8 ? "Medium" : "High"})`}</p>
+          <p style={{ margin: 0 }}>Budget Level: {`${(budgetLevel / 10).toFixed(0)} (${budgetLevel < 40 ? "Low" : budgetLevel < 80 ? "Medium" : "High"})`}</p>
           <hr style={{ marginBottom: "1.2rem", marginTop: 0 }} />
         </div>
         <div style={{ marginBottom: "10px" }}>
@@ -28,8 +28,7 @@ export const DetailScores = ({ scores, travelMonths, budgetLevel }) => {
         </div>
       </div>
       <div style={{ padding: "0px 10px", width: "250px" }}>
-        <Row style={{ alignItems: "center" }}>
-          <Col xs={4}>estimation*</Col>
+        <Row style={{ alignItems: "center", justifyContent: "end" }}>
           <Col xs={8}>
             <Row>
               <Col xs={4}>

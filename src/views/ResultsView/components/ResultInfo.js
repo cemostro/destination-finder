@@ -8,13 +8,34 @@ import { TravelMonthsComponent } from "./TravelMonthsComponent";
 const ResultInfo = ({ country, label, userData }) => {
   const [scores, setScores] = useState([]);
   const loadData = () => {
-    var s = Object.keys(country.scores.attr)?.map((key) => ({
-      name: key,
-      value: country.scores.attr[key].score,
-    }));
+    let s;
+    if (userData.PresetType.length === 0) {
+      s = Object.keys(country.scores.attr)?.map((key) => ({
+        name: key,
+        value: country.scores.attr[key].score,
+        weight: country.scores.attr[key].weight,
+      }));
+    } else {
+      s = userData.PresetType.map((key) => ({
+        name: key.toLowerCase(),
+        value: country.scores.attr[key.toLowerCase()]?.score || 0,
+        weight: 1,
+      }));
+    }
     setScores(s);
   };
-  useEffect(loadData, [country]);
+  useEffect(loadData, [country, userData.PresetType]);
+
+  const budgetLevelToText = (budgetLevel) => { 
+    if (budgetLevel < 40) {
+      return "Low";
+    } else if (budgetLevel < 80) {
+      return "Medium";
+    } else {
+      return "High";
+    }
+  }
+
   return (
     <div className="dark-theme">
       <PieChartComponent
@@ -24,7 +45,7 @@ const ResultInfo = ({ country, label, userData }) => {
         region={country.region}
       />
       <p style={{ paddingTop: "10px" }}>
-      Budget Level: {`${country.budgetLevel} (${country.budgetLevel < 4 ? "Low" : country.budgetLevel < 8 ? "Medium" : "High"})`}
+      {`Budget Level: ${(country.budgetLevel / 10).toFixed(0)} (${budgetLevelToText(country.budgetLevel)}), your Preference: ${(userData.Budget / 10).toFixed(0)} (${budgetLevelToText(userData.Budget)})`}
       </p>
       <hr />
       <TravelMonthsComponent

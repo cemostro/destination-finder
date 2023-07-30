@@ -1,5 +1,5 @@
-import React from "react";
-import { ProgressBar } from "react-bootstrap";
+import React, { useMemo } from "react";
+import { ProgressBar, Row, Col } from "react-bootstrap";
 
 const scoreToColor = (score) => {
   switch (score) {
@@ -49,7 +49,21 @@ const indexToMonth = (index) => {
   }
 }
 
-export const TravelMonthScore = ({ travelMonths }) => {
+export const TravelMonthScore = ({ travelMonths, userData }) => {
+
+  const travelMonthMatchCols = useMemo(() => {
+    let cols = [];
+    if (userData?.Months) {
+      for (let i = 0; i < userData.Months.length; i++) {
+        cols.push(
+          <Col key={i} xs={1}>
+            {userData.Months[i] === 100 ? "+" : ""}
+          </Col>
+        );
+      }
+    }
+    return cols;
+  }, [userData?.Months]);
 
   return (
     <div>
@@ -63,6 +77,11 @@ export const TravelMonthScore = ({ travelMonths }) => {
           />
         ))}
       </ProgressBar>
+      {userData?.Months && (
+        <Row style={{ alignItems: "center", padding: "0px 10px" }}>
+          {travelMonthMatchCols}
+        </Row>
+      )}
     </div>
   );
 };

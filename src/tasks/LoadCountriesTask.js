@@ -30,13 +30,12 @@ class LoadCountriesTask {
       const mapCountry = this.mapCountries.find(
         (c) => c.properties.u_name === scoreCountry.u_name
       );
-      console.log(mapCountry)
       var res = {
         country: scoreCountry.ParentRegion.data.attributes.Region,
         region: scoreCountry.Region,
         uname: scoreCountry.u_name,
         price: scoreCountry.costPerWeek,
-        budgetLevel: this.calculateBudgetLevel(scoreCountry.costPerWeek),
+        budgetLevel: scoreCountry.budgetLevel,
         qualifications: {
           nature: this.calculateRecursiveScore(scoreCountry, countryScores, "nature"),
           architecture: this.calculateRecursiveScore(scoreCountry, countryScores, "architecture"),
@@ -222,10 +221,11 @@ class LoadCountriesTask {
   calculateBudgetScore = (countryBudgetLevel, userData) => {
     if (userData.Budget >= countryBudgetLevel) {
       return 100;
-    } else if (userData.Budget === countryBudgetLevel - 1) {
-      return 50;
+    } else if (userData.Budget <= countryBudgetLevel - 20) {
+      return 0;
+    } else {
+      return 100 - ((countryBudgetLevel - userData.Budget) * 100) / 20;
     }
-    return 0;
   };
 }
 

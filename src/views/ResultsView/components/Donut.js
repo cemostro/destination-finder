@@ -29,7 +29,12 @@ const Donut = ({ scores, label }) => {
     >
       {centerLabel}
       <Pie
-        data={scores}
+        data={scores.map((score) => {
+          return {
+            name: score.name,
+            value: score.value * score.weight,
+          };
+        })}
         innerRadius={donutState.innerRadius}
         outerRadius={donutState.outerRadius}
         fill="#8884d8"
