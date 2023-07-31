@@ -19,7 +19,7 @@ export const DetailScores = ({ scores, travelMonths, budgetLevel }) => {
           <hr style={{ marginBottom: "1.2rem", marginTop: 0 }} />
         </div>
         <div style={{ marginBottom: "10px" }}>
-          <TravelMonthScore travelMonths={travelMonths} />
+          <TravelMonthScore travelMonths={travelMonths} showMatches={false} />
         </div>
         <div>
           {scores.map((entry, index) => (

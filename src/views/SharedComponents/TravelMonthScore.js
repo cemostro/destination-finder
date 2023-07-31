@@ -50,7 +50,7 @@ const indexToMonth = (index) => {
   }
 }
 
-export const TravelMonthScore = ({ travelMonths }) => {
+export const TravelMonthScore = ({ travelMonths, showMatches }) => {
   const { userData } = useTravelRecommenderStore();
 
   const travelMonthMatchCols = useMemo(() => {
@@ -58,7 +58,7 @@ export const TravelMonthScore = ({ travelMonths }) => {
     if (userData?.Months) {
       for (let i = 0; i < userData.Months.length; i++) {
         cols.push(
-          <Col key={i} xs={1}>
+          <Col key={i} xs={1} style={{padding: 0}}>
             {userData.Months[i] === 100 ? "+" : ""}
           </Col>
         );
@@ -79,7 +79,7 @@ export const TravelMonthScore = ({ travelMonths }) => {
           />
         ))}
       </ProgressBar>
-      {userData?.Months && (
+      {userData?.Months && showMatches && (
         <Row style={{ alignItems: "center", padding: "0px 10px" }}>
           {travelMonthMatchCols}
         </Row>
