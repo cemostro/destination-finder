@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import "../../App.css";
 import ResultInfo from "./components/ResultInfo";
+import useTravelRecommenderStore from "../../store/travelRecommenderStore";
 
-export const Results = ({ results, activeResult, userData }) => {
+export const Results = ({ activeResult }) => {
+  const results = useTravelRecommenderStore((state) => state.results);
   const [activeIndex, setActiveIndex] = useState(-1);
   const accordElem = useRef(null);
   useEffect(() => {
@@ -48,7 +50,6 @@ export const Results = ({ results, activeResult, userData }) => {
                   <ResultInfo
                     country={item}
                     label={index + 1}
-                    userData={userData}
                   />
                 </Accordion.Body>
               </Accordion.Item>

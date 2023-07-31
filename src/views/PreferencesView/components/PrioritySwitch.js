@@ -2,8 +2,10 @@ import React, { useMemo } from "react";
 import "../../../App.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAnglesUp, faAngleUp, faAnglesDown } from '@fortawesome/free-solid-svg-icons'
+import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
 
-const PrioritySwitch = ({ attrName, userData, setUserData }) => {
+const PrioritySwitch = ({ attrName }) => {
+    const { userData, setUserData } = useTravelRecommenderStore();
     const switchIcon = useMemo(() => {
         switch (userData.Attributes[attrName].weight) {
             case 0:

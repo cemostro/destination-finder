@@ -1,11 +1,13 @@
 import React, { useMemo, useCallback } from "react";
 import { ButtonGroup, ToggleButton, Button } from "react-bootstrap";
 import "../../../App.css";
+import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
   "November", "December"];
 
-const TravelMonths = ({ userData, setUserData }) => {
+const TravelMonths = () => {
+  const { userData, setUserData } = useTravelRecommenderStore();
 
   const handleMonthChange = useCallback((index) => {
     let newMonths = [...userData.Months];

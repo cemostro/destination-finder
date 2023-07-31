@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { debounce } from "lodash";
 import "../../../App.css";
+import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
 
-const Budget = ({ userData, setUserData }) => {
-
+const Budget = () => {
+  const { userData, setUserData } = useTravelRecommenderStore();
   const [value, setValue] = useState(userData.Budget);
 
   const onChangeDebounced = debounce((value) => {

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
 
-const SlideRange = ({ attrName, userData, setUserData, color }) => {
+const SlideRange = ({ attrName }) => {
+  const { userData, setUserData } = useTravelRecommenderStore();
   const [value, setValue] = useState(userData.Attributes[attrName]);
   return (
     <form style={{ width: "100%", display: "flex" }}>

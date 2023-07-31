@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { ProgressBar, Row, Col } from "react-bootstrap";
+import useTravelRecommenderStore from "../../store/travelRecommenderStore";
 
 const scoreToColor = (score) => {
   switch (score) {
@@ -49,7 +50,8 @@ const indexToMonth = (index) => {
   }
 }
 
-export const TravelMonthScore = ({ travelMonths, userData }) => {
+export const TravelMonthScore = ({ travelMonths }) => {
+  const { userData } = useTravelRecommenderStore();
 
   const travelMonthMatchCols = useMemo(() => {
     let cols = [];

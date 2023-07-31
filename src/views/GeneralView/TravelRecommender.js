@@ -9,7 +9,7 @@ import { Tooltip } from 'react-tooltip'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
-const TravelRecommender = ({ countries, userData, setUserData, results }) => {
+const TravelRecommender = () => {
   const [activeResult, setActiveResult] = useState(0);
   const [leftColumnOpen, setLeftColumnOpen] = useState(true);
   const [rightColumnOpen, setRightColumnOpen] = useState(true);
@@ -19,10 +19,7 @@ const TravelRecommender = ({ countries, userData, setUserData, results }) => {
       <Row style={{ height: "100%" }}>
         {leftColumnOpen && (
           <Col style={{ height: "100%", paddingRight: 0 }}>
-            <Preferences
-              userData={userData}
-              setUserData={setUserData}
-            ></Preferences>
+            <Preferences />
           </Col>
         )}
         <Col xs={6 + (leftColumnOpen ? 0 : 3) + (rightColumnOpen ? 0 : 3)} style={{ height: "100%", padding: 0 }}>
@@ -30,7 +27,7 @@ const TravelRecommender = ({ countries, userData, setUserData, results }) => {
             <div className="expand-bar" onClick={() => setLeftColumnOpen(oldState => !oldState)}>
               <FontAwesomeIcon icon={leftColumnOpen ? faAngleLeft : faAngleRight} />
             </div>
-            <Map key={`map-${leftColumnOpen}-${rightColumnOpen}`} countries={countries} setActiveResult={setActiveResult} />
+            <Map key={`map-${leftColumnOpen}-${rightColumnOpen}`} setActiveResult={setActiveResult} />
             <div className="expand-bar" onClick={() => setRightColumnOpen(oldState => !oldState)}>
               <FontAwesomeIcon icon={rightColumnOpen ? faAngleRight : faAngleLeft} />
             </div>
@@ -38,16 +35,11 @@ const TravelRecommender = ({ countries, userData, setUserData, results }) => {
         </Col>
         {rightColumnOpen && (
           <Col style={{ height: "100%" }}>
-            <Results
-              results={results}
-              stay={userData.Stay}
-              activeResult={activeResult}
-              userData={userData}
-            />
+            <Results activeResult={activeResult} />
           </Col>
         )}
       </Row>
-      <Tooltip id="prio-switch-tooltip" style={{ width: "300px", zIndex: 99999 }}  />
+      <Tooltip id="prio-switch-tooltip" style={{ width: "300px", zIndex: 99999 }} />
       <Tooltip id="additional-info-tooltip" style={{ width: "300px", zIndex: 99999 }} place="bottom" />
       <Tooltip id="barchart-tooltip" style={{ width: "300px", zIndex: 99999 }} place="bottom" />
 

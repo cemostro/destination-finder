@@ -1,7 +1,9 @@
 import React from "react";
 import { AttributeScore } from "./AttributeScore";
+import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
 
-export const DetailScores = ({ scores, userData }) => {
+export const DetailScores = ({ scores }) => {
+  const { userData } = useTravelRecommenderStore();
   const getUserData = (attrName) => {
     var key = attrName.charAt(0).toUpperCase() + attrName.slice(1);
     return userData.Attributes[key];

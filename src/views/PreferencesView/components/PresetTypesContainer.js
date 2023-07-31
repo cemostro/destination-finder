@@ -3,10 +3,12 @@ import * as myConstant from "../../../data/constantData";
 import { Row, Col, } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBurger, faTree, faLandmark, faPersonHiking, faPersonSkiing, faUmbrellaBeach, faToriiGate, faFilm, faBagShopping } from '@fortawesome/free-solid-svg-icons'
+import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
 
 const icons = [faTree, faLandmark, faPersonHiking, faPersonSkiing, faUmbrellaBeach, faToriiGate, faBurger, faFilm, faBagShopping]
 
-export const PresetTypesContainer = ({ userData, setUserData }) => {
+export const PresetTypesContainer = () => {
+    const { userData, setUserData } = useTravelRecommenderStore();
 
     const presetTypesRows = useMemo(() => {
         let rows = [];
@@ -28,17 +30,10 @@ export const PresetTypesContainer = ({ userData, setUserData }) => {
                                         PresetType: userData.PresetType.slice(0, index).concat(userData.PresetType.slice(index + 1)),
                                     });
                                 } else {
-                                    if (userData.PresetType.length < 3) {
-                                        setUserData({
-                                            ...userData,
-                                            PresetType: userData.PresetType.concat([Object.keys(userData.Attributes)[i * 3 + j]]),
-                                        });
-                                    } else {
-                                        setUserData({
-                                            ...userData,
-                                            PresetType: userData.PresetType.slice(1).concat([Object.keys(userData.Attributes)[i * 3 + j]]),
-                                        });
-                                    }
+                                    setUserData({
+                                        ...userData,
+                                        PresetType: userData.PresetType.concat([Object.keys(userData.Attributes)[i * 3 + j]]),
+                                    });
                                 }
                             }}
                         >
@@ -61,7 +56,7 @@ export const PresetTypesContainer = ({ userData, setUserData }) => {
     return (
         <div>
             <p style={{ textAlign: "start", fontSize: "small" }}>
-                Choose up to 3 topics that interest you the most:
+                Choose the topics that interest you the most:
             </p>
             {presetTypesRows}
         </div>

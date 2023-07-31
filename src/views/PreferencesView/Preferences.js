@@ -6,8 +6,10 @@ import { PresetTypesContainer } from "./components/PresetTypesContainer";
 import { Tabs, Tab } from "react-bootstrap";
 import AdditionalInfo from "./components/AdditionalInfo";
 import TravelMonths from "./components/TravelMonths";
+import useTravelRecommenderStore from "../../store/travelRecommenderStore";
 
-const Preferences = ({ userData, setUserData }) => {
+const Preferences = () => {
+  const { userData, setUserData } = useTravelRecommenderStore();
   const [key, setKey] = useState('novice');
 
   return (
@@ -15,13 +17,13 @@ const Preferences = ({ userData, setUserData }) => {
       <p style={{ textAlign: "left", paddingTop: "10px", fontWeight: "700", fontSize: "1.1em" }}>DestiRec - Travel Destination Recommender System</p>
       <hr />
       <div style={{ padding: "10px 0" }}>
-        <Budget userData={userData} setUserData={setUserData} />
+        <Budget />
       </div>
       <div>
-        <AdditionalInfo userData={userData} setUserData={setUserData} />
+        <AdditionalInfo />
       </div>
       <div>
-        <TravelMonths userData={userData} setUserData={setUserData} />
+        <TravelMonths />
       </div>
       <div style={{ padding: "10px 0" }}>
         <Tabs
@@ -31,10 +33,10 @@ const Preferences = ({ userData, setUserData }) => {
           className="mb-3"
         >
           <Tab eventKey="novice" title="Presets (Novice)">
-            <PresetTypesContainer userData={userData} setUserData={setUserData}></PresetTypesContainer>
+            <PresetTypesContainer />
           </Tab>
           <Tab eventKey="advanced" title="Advanced Preferences">
-            <CustomizationContainer userData={userData} setUserData={setUserData} />
+            <CustomizationContainer />
           </Tab>
         </Tabs>
 

@@ -1,5 +1,6 @@
 import React, {useMemo} from "react";
 import { TravelMonthScore } from "../../SharedComponents/TravelMonthScore";
+import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
 
 const indexToMonth = (index) => {
   switch (index) {
@@ -32,7 +33,8 @@ const indexToMonth = (index) => {
   }
 }
 
-export const TravelMonthsComponent = ({ countryName, travelMonths, userData }) => {  
+export const TravelMonthsComponent = ({ countryName, travelMonths }) => {  
+  const userData = useTravelRecommenderStore((state) => state.userData);
   const bestTravelMonth = useMemo(() => {
     let bestMonth = "JANUARY";
     let maxScore = 0;
@@ -53,7 +55,7 @@ export const TravelMonthsComponent = ({ countryName, travelMonths, userData }) =
         The best travel months for {countryName} are listed below.
         Your best matching travel month is {bestTravelMonth.bestMonth} with a score of {bestTravelMonth.maxScore}%. 
       </p>
-      <TravelMonthScore travelMonths={travelMonths} userData={userData} />
+      <TravelMonthScore travelMonths={travelMonths} />
     </div>
   );
 };

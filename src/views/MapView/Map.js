@@ -6,11 +6,13 @@ import "./styles/Map.css";
 import { CountryPopup } from "./components/CountryPopup";
 import { IndexLabel } from "./components/IndexLabel";
 import Legend from "./components/Legend";
+import useTravelRecommenderStore from "../../store/travelRecommenderStore";
 
 const position = [51.0967884, 5.9671304];
 
-const Map = ({ countries, setActiveResult }) => {
+const Map = ({ setActiveResult }) => {
   const [map, setMap] = useState(null);
+  const countries = useTravelRecommenderStore((state) => state.countries);
   const geoJsonLayer = useRef(null);
 
   useEffect(() => {

@@ -1,8 +1,10 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import "../../../App.css";
+import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
 
-const AdditionalInfo = ({ userData, setUserData }) => {
+const AdditionalInfo = () => {
+  const { userData, setUserData } = useTravelRecommenderStore();
   return (
     <div
       data-tooltip-id="additional-info-tooltip"

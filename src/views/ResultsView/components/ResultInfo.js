@@ -4,8 +4,10 @@ import { DetailScores } from "./DetailScores";
 import { NoviceScores } from "./NoviceScores";
 import { PieChartComponent } from "./PieChartComponent";
 import { TravelMonthsComponent } from "./TravelMonthsComponent";
+import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
 
-const ResultInfo = ({ country, label, userData }) => {
+const ResultInfo = ({ country, label }) => {
+  const userData = useTravelRecommenderStore((state) => state.userData);
   const [scores, setScores] = useState([]);
   const loadData = () => {
     let s;
@@ -26,7 +28,7 @@ const ResultInfo = ({ country, label, userData }) => {
   };
   useEffect(loadData, [country, userData.PresetType]);
 
-  const budgetLevelToText = (budgetLevel) => { 
+  const budgetLevelToText = (budgetLevel) => {
     if (budgetLevel < 40) {
       return "Low";
     } else if (budgetLevel < 80) {
@@ -45,13 +47,10 @@ const ResultInfo = ({ country, label, userData }) => {
         region={country.region}
       />
       <p style={{ paddingTop: "10px" }}>
-      {`Budget Level: ${(country.budgetLevel / 10).toFixed(0)} (${budgetLevelToText(country.budgetLevel)}), your Preference: ${(userData.Budget / 10).toFixed(0)} (${budgetLevelToText(userData.Budget)})`}
+        {`Budget Level: ${(country.budgetLevel / 10).toFixed(0)} (${budgetLevelToText(country.budgetLevel)}), your Preference: ${(userData.Budget / 10).toFixed(0)} (${budgetLevelToText(userData.Budget)})`}
       </p>
       <hr />
-      <TravelMonthsComponent
-        countryName={country.region}
-        travelMonths={country.travelMonths}
-        userData={userData} />
+      <TravelMonthsComponent countryName={country.region} travelMonths={country.travelMonths} />
       <hr />
       {userData.PresetType.length === 0 ? (
         <>
@@ -66,7 +65,6 @@ const ResultInfo = ({ country, label, userData }) => {
               name: key,
               value: country.qualifications[key],
             }))}
-            userData={userData}
           />
         </>
       ) : (
@@ -80,10 +78,9 @@ const ResultInfo = ({ country, label, userData }) => {
               name: key,
               value: country.qualifications[key],
             }))}
-            userData={userData}
           />
         </>
-      ) }
+      )}
 
       <hr />
       <p>Overall score: {country.scores.totalScore}/100</p>

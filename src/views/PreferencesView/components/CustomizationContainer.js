@@ -1,8 +1,10 @@
 import React from "react";
 import Attribute from "./Attribute";
 import * as myConstant from "../../../data/constantData";
+import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
 
-export const CustomizationContainer = ({ userData, setUserData }) => {
+export const CustomizationContainer = () => {
+  const { userData } = useTravelRecommenderStore();
   return (
     <div>
       <p style={{ textAlign: "start", fontSize: "small" }}>
@@ -12,7 +14,7 @@ export const CustomizationContainer = ({ userData, setUserData }) => {
         <div
           style={{
             backgroundColor:
-              userData.Attributes[item].weight === 0 ? "gray" :  myConstant.COLORS[index % myConstant.COLORS.length],
+              userData.Attributes[item].weight === 0 ? "gray" : myConstant.COLORS[index % myConstant.COLORS.length],
             borderRadius: "100",
             color: "#fff",
             textAlign: "left",
@@ -23,11 +25,7 @@ export const CustomizationContainer = ({ userData, setUserData }) => {
           }}
           key={index}
         >
-          <Attribute
-            attrName={item}
-            userData={userData}
-            setUserData={setUserData}
-          />
+          <Attribute attrName={item} />
         </div>
       ))}
     </div>
