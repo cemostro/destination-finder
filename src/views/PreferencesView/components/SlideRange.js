@@ -1,9 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import useTravelRecommenderStore from "../../../store/travelRecommenderStore";
+import { debounce } from "lodash";
 
 const SlideRange = ({ attrName }) => {
   const { userData, setUserData } = useTravelRecommenderStore();
+
   const [value, setValue] = useState(userData.Attributes[attrName]);
+
+  const onChange = (value) => {
+    setUserData({
+      ...userData,
+      Attributes: {
+        ...userData.Attributes,
+        [attrName]: {
+          ...userData.Attributes[attrName],
+          score: value,
+        },
+      },
+    });
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const onChangeDebounced = useCallback(debounce(onChange, 500), []);
+
   return (
     <form style={{ width: "100%", display: "flex" }}>
       <input
@@ -14,16 +33,7 @@ const SlideRange = ({ attrName }) => {
         value={value}
         onChange={(e) => {
           setValue(e.target.valueAsNumber);
-          setUserData({
-            ...userData,
-            Attributes: {
-              ...userData.Attributes,
-              [attrName]: {
-                ...userData.Attributes[attrName],
-                score: e.target.valueAsNumber
-              },
-            },
-          });
+          onChangeDebounced(e.target.valueAsNumber);
         }}
       ></input>
     </form>

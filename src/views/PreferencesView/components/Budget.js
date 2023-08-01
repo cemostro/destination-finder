@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { debounce } from "lodash";
 import "../../../App.css";
@@ -8,12 +8,12 @@ const Budget = () => {
   const { userData, setUserData } = useTravelRecommenderStore();
   const [value, setValue] = useState(userData.Budget);
 
-  const onChangeDebounced = debounce((value) => {
-    setUserData({
-      ...userData,
-      Budget: parseInt(value),
-    });
-  }, 1000);
+  const onChange = (value) => {
+    setUserData({ ...userData, Budget: value });
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const onChangeDebounced = useCallback(debounce(onChange, 500), []);
 
   return (
     <Form>
@@ -40,6 +40,7 @@ const Budget = () => {
           style={{ padding: "0 15px" }}
           min={10}
           max={100}
+          step={10}
           value={value}
           onChange={(event) => {
             setValue(event.target.value)
