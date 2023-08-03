@@ -3,20 +3,11 @@ import { ProgressBar, Row, Col } from "react-bootstrap";
 import useTravelRecommenderStore from "../../store/travelRecommenderStore";
 
 const scoreToColor = (score) => {
-  switch (score) {
-    case 0:
-      return "red";
-    case 25:
-      return "orange";
-    case 50:
-      return "yellow";
-    case 75:
-      return "lightgreen";
-    case 100:
-      return "green";
-    default:
-      return "white";
-  }
+  if (score < 15) return "red";
+  if (score < 40) return "orange";
+  if (score < 65) return "yellow";
+  if (score < 90) return "lightgreen";
+  return "green";
 }
 
 const indexToMonth = (index) => {
