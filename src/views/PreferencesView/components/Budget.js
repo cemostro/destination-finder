@@ -13,7 +13,7 @@ const Budget = () => {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onChangeDebounced = useCallback(debounce(onChange, 500), []);
+  const onChangeDebounced = useCallback(debounce(onChange, 500), [userData]);
 
   return (
     <Form>
