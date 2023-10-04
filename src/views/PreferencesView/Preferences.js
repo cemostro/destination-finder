@@ -10,7 +10,7 @@ import useTravelRecommenderStore from "../../store/travelRecommenderStore";
 
 const Preferences = () => {
   const { userData, setUserData } = useTravelRecommenderStore();
-  const [key, setKey] = useState('novice');
+  const [key, setKey] = useState('advanced');
 
   return (
     <div style={{ height: "100%", overflowY: "auto", overflowX: "hidden", paddingRight: "5px" }}>
