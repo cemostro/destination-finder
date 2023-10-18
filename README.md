@@ -1,14 +1,16 @@
 # destination-finder
-A new user interface to recommend destinations based on the user's preferences and needs. This application was implemented for Master Thesis at TUM with the title "Dynamic Adaptation of User Preferences and Results in Complex Recommender Systems". 
+Improved DestiRec application to recommend destinations based on the user's preferences and needs, implemented for the Bachelor's Thesis at TUM "Improving a Web-based Destination Recommender System". 
+
+Original application was implemented for Master Thesis at TUM with the title "Dynamic Adaptation of User Preferences and Results in Complex Recommender Systems". 
 
 ## Demo
-A demo of this interface is available on https://destination-finder.netlify.app/
+A demo of this interface is available on https://desti-rec.netlify.app/
 ## Getting Started
 
 You need git to clone our repository.
 
 ```
-git clone https://github.com/asalnesar/destination-finder.git
+git clone https://github.com/cemostro/destination-finder.git
 cd destination-finder/
 ```
 
